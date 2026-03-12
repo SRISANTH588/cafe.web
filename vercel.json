@@ -1,27 +1,5 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api-server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api-server.js"
-    },
-    {
-      "src": "/paytm/(.*)",
-      "dest": "/api-server.js"
-    },
-    {
-      "src": "/",
-      "dest": "/cafe.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
+  "rewrites": [
+    { "source": "/", "destination": "/cafe.html" }
   ]
 }
