@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ayyan Cafe - Order System</title>
+    <link rel="stylesheet" href="cafe-styles.css">
+</head>
+<body>
+    <!-- Simple Loading Animation -->
+    <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #6B4423, #8B5A3C); z-index: 10000; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease;">
+        <div style="text-align: center;">
+            <div style="font-size: 6rem; margin-bottom: 1.5rem;">☕</div>
+            <h1 style="color: #FFD700; font-size: 2.5rem; margin: 0 0 0.5rem 0; font-weight: 600;">Ayyan Cafe</h1>
+            <p style="color: #FFF; font-size: 1.1rem; font-style: italic; margin: 0 0 2rem 0;">Where Every Sip Tells a Story</p>
+            <div style="width: 200px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 0 auto; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: #FFD700; animation: loading 2s ease;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes loading {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+    
+    <div class="container">
+        <!-- Left Side - Order Section -->
+        <div class="left-section">
+            <div class="header">
+                <h1>☕ Ayyan Cafe</h1>
+                <p class="tagline">Where Every Sip Tells a Story</p>
+                <p class="subtitle">Premium Beverages & Delights</p>
+            </div>
+
+            <div class="menu">
+                <div class="menu-category">
+                    <h2 class="category-title">☕ Coffee</h2>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h3>Coffee</h3>
+                            <p class="price">₹30</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="updateQuantity('coffee', -1)">-</button>
+                            <input type="number" id="coffee-qty" value="0" min="0" readonly>
+                            <button class="qty-btn" onclick="updateQuantity('coffee', 1)">+</button>
+                            <button class="stock-btn" id="coffee-stock" onclick="toggleStock('coffee')">✓</button>
+                        </div>
+                        <div id="coffee-sugar" style="display: none; margin-top: 0.5rem;">
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <label style="flex: 1; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 0.9rem; padding: 0.5rem; background: rgba(255,215,0,0.2); border-radius: 5px; cursor: pointer;">
+                                    <input type="radio" name="coffee-sugar-option" value="less" onchange="handleSugarOption('coffee', 'less')">
+                                    <span>Less Sugar</span>
+                                </label>
+                                <label style="flex: 1; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 0.9rem; padding: 0.5rem; background: rgba(255,215,0,0.2); border-radius: 5px; cursor: pointer;">
+                                    <input type="radio" name="coffee-sugar-option" value="free" onchange="handleSugarOption('coffee', 'free')">
+                                    <span>Sugar Free (+₹10)</span>
+                                </label>
+                            </div>
+                            <div id="coffee-sugarfree-control" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: rgba(255,215,0,0.3); border-radius: 5px;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: white;">
+                                    <span style="flex: 1; font-size: 0.9rem;">Sugar Free Qty:</span>
+                                    <div class="quantity-control" style="gap: 0.3rem;">
+                                        <button class="qty-btn" style="width: 30px; height: 30px; font-size: 0.9rem;" onclick="updateSugarFree('coffee', -1)">-</button>
+                                        <input type="number" id="coffee-sugarfree-qty" value="0" min="0" readonly style="width: 40px; text-align: center; padding: 0.3rem; border: 2px solid #FFD700; border-radius: 5px; font-size: 0.9rem; font-weight: bold;">
+                                        <button class="qty-btn" style="width: 30px; height: 30px; font-size: 0.9rem;" onclick="updateSugarFree('coffee', 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="customCoffee"></div>
+                    <button class="add-item-btn" onclick="showAddItemModal('coffee')">+ Add Coffee Item</button>
+                </div>
+
+                <div class="menu-category">
+                    <h2 class="category-title">🍵 Tea</h2>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h3>Tea</h3>
+                            <p class="price">₹30</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="updateQuantity('tea', -1)">-</button>
+                            <input type="number" id="tea-qty" value="0" min="0" readonly>
+                            <button class="qty-btn" onclick="updateQuantity('tea', 1)">+</button>
+                            <button class="stock-btn" id="tea-stock" onclick="toggleStock('tea')">✓</button>
+                        </div>
+                        <div id="tea-sugar" style="display: none; margin-top: 0.5rem;">
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <label style="flex: 1; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 0.9rem; padding: 0.5rem; background: rgba(255,215,0,0.2); border-radius: 5px; cursor: pointer;">
+                                    <input type="radio" name="tea-sugar-option" value="less" onchange="handleSugarOption('tea', 'less')">
+                                    <span>Less Sugar</span>
+                                </label>
+                                <label style="flex: 1; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 0.9rem; padding: 0.5rem; background: rgba(255,215,0,0.2); border-radius: 5px; cursor: pointer;">
+                                    <input type="radio" name="tea-sugar-option" value="free" onchange="handleSugarOption('tea', 'free')">
+                                    <span>Sugar Free (+₹10)</span>
+                                </label>
+                            </div>
+                            <div id="tea-sugarfree-control" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: rgba(255,215,0,0.3); border-radius: 5px;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: white;">
+                                    <span style="flex: 1; font-size: 0.9rem;">Sugar Free Qty:</span>
+                                    <div class="quantity-control" style="gap: 0.3rem;">
+                                        <button class="qty-btn" style="width: 30px; height: 30px; font-size: 0.9rem;" onclick="updateSugarFree('tea', -1)">-</button>
+                                        <input type="number" id="tea-sugarfree-qty" value="0" min="0" readonly style="width: 40px; text-align: center; padding: 0.3rem; border: 2px solid #FFD700; border-radius: 5px; font-size: 0.9rem; font-weight: bold;">
+                                        <button class="qty-btn" style="width: 30px; height: 30px; font-size: 0.9rem;" onclick="updateSugarFree('tea', 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="customTea"></div>
+                    <button class="add-item-btn" onclick="showAddItemModal('tea')">+ Add Tea Item</button>
+                </div>
+
+                <div class="menu-category">
+                    <h2 class="category-title">🥤 Horlicks / Boost</h2>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h3>Horlicks / Boost</h3>
+                            <p class="price">₹25</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="updateQuantity('horlicks', -1)">-</button>
+                            <input type="number" id="horlicks-qty" value="0" min="0" readonly>
+                            <button class="qty-btn" onclick="updateQuantity('horlicks', 1)">+</button>
+                            <button class="stock-btn" id="horlicks-stock" onclick="toggleStock('horlicks')">✓</button>
+                        </div>
+                        <div id="horlicks-sugar" style="display: none; margin-top: 0.5rem;">
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <label style="flex: 1; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 0.9rem; padding: 0.5rem; background: rgba(255,215,0,0.2); border-radius: 5px; cursor: pointer;">
+                                    <input type="radio" name="horlicks-sugar-option" value="less" onchange="handleSugarOption('horlicks', 'less')">
+                                    <span>Less Sugar</span>
+                                </label>
+                                <label style="flex: 1; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 0.9rem; padding: 0.5rem; background: rgba(255,215,0,0.2); border-radius: 5px; cursor: pointer;">
+                                    <input type="radio" name="horlicks-sugar-option" value="free" onchange="handleSugarOption('horlicks', 'free')">
+                                    <span>Sugar Free (+₹10)</span>
+                                </label>
+                            </div>
+                            <div id="horlicks-sugarfree-control" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: rgba(255,215,0,0.3); border-radius: 5px;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; color: white;">
+                                    <span style="flex: 1; font-size: 0.9rem;">Sugar Free Qty:</span>
+                                    <div class="quantity-control" style="gap: 0.3rem;">
+                                        <button class="qty-btn" style="width: 30px; height: 30px; font-size: 0.9rem;" onclick="updateSugarFree('horlicks', -1)">-</button>
+                                        <input type="number" id="horlicks-sugarfree-qty" value="0" min="0" readonly style="width: 40px; text-align: center; padding: 0.3rem; border: 2px solid #FFD700; border-radius: 5px; font-size: 0.9rem; font-weight: bold;">
+                                        <button class="qty-btn" style="width: 30px; height: 30px; font-size: 0.9rem;" onclick="updateSugarFree('horlicks', 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="customHorlicks"></div>
+                    <button class="add-item-btn" onclick="showAddItemModal('horlicks')">+ Add Health Drink</button>
+                </div>
+
+                <div class="menu-category">
+                    <h2 class="category-title">🍞 Snacks</h2>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h3>Maska Bun</h3>
+                            <p class="price">₹45</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="updateQuantity('maska', -1)">-</button>
+                            <input type="number" id="maska-qty" value="0" min="0" readonly>
+                            <button class="qty-btn" onclick="updateQuantity('maska', 1)">+</button>
+                            <button class="stock-btn" id="maska-stock" onclick="toggleStock('maska')">✓</button>
+                        </div>
+                    </div>
+                    <div id="customMaska"></div>
+                    <button class="add-item-btn" onclick="showAddItemModal('maska')">+ Add Snack Item</button>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div id="orderItems"></div>
+                <div class="total">
+                    <strong>Total: ₹<span id="currentOrderTotal">0</span></strong>
+                </div>
+            </div>
+
+            <div class="note-section">
+                <h3>Special Instructions</h3>
+                <div class="quick-notes">
+                    <button class="quick-note-btn" onclick="addQuickNote('Less Sugar')">Less Sugar</button>
+                    <button class="quick-note-btn" onclick="addQuickNote('Extra Hot')">Extra Hot</button>
+                    <button class="quick-note-btn" onclick="addQuickNote('Less Milk')">Less Milk</button>
+                    <button class="quick-note-btn" onclick="addQuickNote('No Sugar')">No Sugar</button>
+                </div>
+                <textarea id="orderNote" placeholder="Add custom instructions..." rows="2"></textarea>
+                
+                <div class="order-type-section" style="margin-top: 1rem;">
+                    <h3 style="margin-bottom: 0.5rem;">Order Type</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <label class="order-type-radio" style="flex: 1; padding: 0.8rem; background: rgba(255, 215, 0, 0.2); border: 2px solid #FFD700; border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold;">
+                            <input type="radio" name="orderType" value="dine-in" checked onchange="updateOrderSummary()" style="margin-right: 0.5rem;">
+                            Dine In
+                        </label>
+                        <label class="order-type-radio" style="flex: 1; padding: 0.8rem; background: rgba(255, 215, 0, 0.2); border: 2px solid #FFD700; border-radius: 8px; cursor: pointer; text-align: center; font-weight: bold;">
+                            <input type="radio" name="orderType" value="parcel" onchange="updateOrderSummary()" style="margin-right: 0.5rem;">
+                            Parcel
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-section">
+                <h3>Payment Method</h3>
+                <div class="payment-buttons">
+                    <button class="payment-btn" onclick="confirmOrder('cash')">💵 Cash Payment</button>
+                    <button class="payment-btn online" onclick="confirmOrder('online')">📱 Online Payment</button>
+                    <button class="payment-btn" onclick="confirmOrder('cafecard')" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">💳 Cafe Card</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Orders Management -->
+        <div class="right-section">
+            <div class="header">
+                <h2>📋 Orders</h2>
+                <div class="qr-corner" style="position: absolute; top: 1rem; right: 1rem; text-align: center;">
+                    <button onclick="toggleMenu()" style="background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #6B4423;">☰</button>
+                    <div id="menuPanel" style="display: none; position: absolute; right: 0; top: 2.5rem; background: white; border: 2px solid #6B4423; border-radius: 8px; padding: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; min-width: 200px;">
+                        <button onclick="toggleQREdit()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📱 UPI Settings</button>
+                        <button onclick="showCafeCardPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">💳 Cafe Card</button>
+                        <button onclick="showBrandingSettings()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">🎨 Cafe Name & Branding</button>
+                        <button onclick="showSettingsPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">⚙️ Settings</button>
+                    </div>
+                    <div id="qrEditPanel" style="display: none; position: absolute; right: 0; top: 2.5rem; background: white; border: 2px solid #6B4423; border-radius: 8px; padding: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; min-width: 200px;">
+                        <h4 style="color: #6B4423; margin: 0 0 0.5rem 0; font-size: 0.9rem;">UPI Settings</h4>
+                        <input type="text" id="upiIDInput" placeholder="Enter UPI ID" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                        <button onclick="saveUPIID()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">✔️ Save UPI ID</button>
+                    </div>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <input type="date" id="dateFilter" style="width: 100%; padding: 0.5rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 0.9rem;" onchange="filterOrdersByDate()">
+                </div>
+                <div class="header-buttons">
+                    <button class="reset-token-btn" onclick="showDailyStatement()">📊 Daily Statement</button>
+                    <button class="reset-token-btn" onclick="resetToken()">🔄 Reset Token</button>
+                    <button class="clear-all-btn" onclick="clearAllOrders()">🗑️ Clear All</button>
+                </div>
+            </div>
+            
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-label">Token Counter</div>
+                    <div class="stat-value" id="tokenCounter">0</div>
+                    <div class="stat-info">/ 300</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Orders</div>
+                    <div class="stat-value" id="totalOrders">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Daily Revenue</div>
+                    <div class="stat-value">₹<span id="totalAmount">0</span></div>
+                    <div class="stat-info">Total earnings today</div>
+                </div>
+            </div>
+
+            <div class="orders-list" id="ordersList">
+                <p class="no-orders">No orders yet</p>
+            </div>
+            
+            <!-- Floating QR Display -->
+            <div id="floatingQR" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Bill Modal -->
+    <div id="billModal" class="modal">
+        <div class="modal-content bill">
+            <span class="close" onclick="closeBill()">&times;</span>
+            <div id="billContent"></div>
+            <div id="cashCalculator" style="display: none; margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; border: 2px solid #6B4423;">
+                <h4 style="color: #6B4423; margin: 0 0 0.5rem 0;">Cash Payment</h4>
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin: 0.5rem 0;">
+                    <input type="number" id="cashGiven" placeholder="Given" style="flex: 1; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem; text-align: right;" oninput="calculateChange()">
+                    <span style="font-size: 1.2rem; font-weight: bold;">-</span>
+                    <input type="number" id="cashTotal" value="0" readonly style="flex: 1; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem; text-align: right; background: #e9ecef;">
+                    <span style="font-size: 1.2rem; font-weight: bold;">=</span>
+                    <input type="number" id="changeAmount" value="0" readonly style="flex: 1; padding: 0.8rem; border: 2px solid #28a745; border-radius: 8px; font-size: 1rem; text-align: right; background: #d4edda; font-weight: bold; color: #155724;">
+                </div>
+            </div>
+            <button class="print-btn" onclick="printBill()">🖨️ Print Bill</button>
+        </div>
+    </div>
+
+
+
+    <!-- Daily Statement Modal -->
+    <div id="statementModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close" onclick="closeStatement()">&times;</span>
+            <div id="statementContent"></div>
+            <button class="print-btn" onclick="printStatement()">🖨️ Print Statement</button>
+        </div>
+    </div>
+    
+    <!-- Add Item Modal -->
+    <div id="addItemModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close" onclick="closeAddItem()">&times;</span>
+            <h3 style="color: #6B4423; margin-bottom: 1rem;" id="modalTitle">Add Custom Item</h3>
+            <input type="text" id="newItemName" placeholder="Item Name" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+            <input type="number" id="newItemPrice" placeholder="Price (₹)" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+            <button class="confirm-btn" onclick="addCustomItem()">Add Item</button>
+        </div>
+    </div>
+    
+    <!-- Cafe Card Modal -->
+    <div id="cafeCardModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close" onclick="closeCafeCard()">&times;</span>
+            <h3 style="color: #6B4423; margin-bottom: 1rem;">💳 Cafe Card Payment</h3>
+            <p style="margin-bottom: 1rem;"><strong>Bill Amount:</strong> ₹<span id="cafeCardBillAmount">0</span></p>
+            <input type="text" id="cafeCardNumber" placeholder="Enter Card Number" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;" oninput="checkCardBalance()">
+            <div id="cardBalanceDisplay" style="display: none; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin: 0.5rem 0; border: 2px solid #6B4423;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <strong>Card Holder:</strong>
+                    <span id="cardHolderName">-</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <strong>Current Balance:</strong>
+                    <span id="cardBalanceAmount" style="color: #28a745; font-weight: bold; font-size: 1.2rem;">-</span>
+                </div>
+            </div>
+            <div id="freeBiscuitsOption" style="display: none; margin: 0.5rem 0;">
+                <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem; background: rgba(255,215,0,0.2); border-radius: 8px; cursor: pointer;">
+                    <input type="checkbox" id="addFreeBiscuits" style="width: 20px; height: 20px;">
+                    <span style="font-weight: bold; color: #6B4423;">🍪 Add Free Biscuits</span>
+                </label>
+            </div>
+            <button class="confirm-btn" onclick="processCafeCardPayment()" style="width: 100%; margin-top: 0.5rem;">Pay with Card</button>
+        </div>
+    </div>
+    
+    <!-- Cafe Card Management Modal -->
+    <div id="cafeCardPanelModal" class="modal">
+        <div class="modal-content" style="max-width: 700px; max-height: 90vh; overflow-y: auto;">
+            <span class="close" onclick="closeCafeCardPanel()">&times;</span>
+            <h3 style="color: #6B4423; margin-bottom: 1rem;">💳 Cafe Card Management</h3>
+            
+            <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                <button onclick="showCardSection('create')" id="createBtn" class="confirm-btn" style="flex: 1; background: #6B4423;">Create Card</button>
+                <button onclick="showCardSection('addmoney')" id="addmoneyBtn" class="confirm-btn" style="flex: 1; background: #28a745;">Add Money</button>
+                <button onclick="showCardSection('view')" id="viewBtn" class="confirm-btn" style="flex: 1; background: #007bff;">View Cards</button>
+            </div>
+            
+            <div id="createSection" style="display: block;">
+                <h4 style="color: #6B4423;">Create New Card</h4>
+                <input type="text" id="newCardNumber" placeholder="Card Number" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+                <input type="text" id="newCardHolder" placeholder="Card Holder Name" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+                <input type="number" id="newCardBalance" placeholder="Initial Balance" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+                <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem; background: rgba(255,215,0,0.2); border-radius: 8px; margin: 0.5rem 0; cursor: pointer;">
+                    <input type="checkbox" id="isPremium" style="width: 20px; height: 20px;">
+                    <span style="font-weight: bold; color: #6B4423;">⭐ Premium Customer (Free Biscuits with every order)</span>
+                </label>
+                <button class="confirm-btn" onclick="createCafeCard()" style="width: 100%;">Create Card</button>
+            </div>
+            
+            <div id="addmoneySection" style="display: none;">
+                <h4 style="color: #6B4423;">Add Money to Card</h4>
+                <input type="text" id="addMoneyCardNumber" placeholder="Card Number" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;" oninput="previewCardForAddMoney()">
+                <div id="addMoneyCardPreview" style="display: none; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin: 0.5rem 0; border: 2px solid #6B4423;"></div>
+                <input type="number" id="addMoneyAmount" placeholder="Amount to Add" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+                <button class="confirm-btn" onclick="addMoneyToCafeCard()" style="width: 100%; background: #28a745;">Add Money</button>
+            </div>
+            
+            <div id="viewSection" style="display: none;">
+                <h4 style="color: #6B4423;">All Cards</h4>
+                <input type="text" id="searchCard" placeholder="🔍 Search by card number or name..." style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;" oninput="displayCafeCards()">
+                <div id="cafeCardsList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close" onclick="closeSettings()">&times;</span>
+            <h3 style="color: #6B4423; margin-bottom: 1rem;">⚙️ Settings</h3>
+            
+            <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
+                <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.8rem; cursor: pointer;">
+                    <span style="font-weight: bold; color: #6B4423;">💳 Cafe Card Payment</span>
+                    <input type="checkbox" id="cafeCardToggle" onchange="toggleCafeCard()" style="width: 50px; height: 25px;">
+                </label>
+            </div>
+            
+            <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.8rem; cursor: pointer;">
+                    <span style="font-weight: bold; color: #6B4423;">🍪 Free Biscuits (Premium)</span>
+                    <input type="checkbox" id="freeBiscuitsToggle" onchange="toggleFreeBiscuits()" style="width: 50px; height: 25px;">
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Branding Settings Modal -->
+    <div id="brandingModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close" onclick="closeBrandingSettings()">&times;</span>
+            <h3 style="color: #6B4423; margin-bottom: 1rem;">🎨 Cafe Name & Branding</h3>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-weight: bold; color: #6B4423; margin-bottom: 0.5rem;">Cafe Name:</label>
+                <input type="text" id="cafeNameInput" placeholder="Ayyan Cafe" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-weight: bold; color: #6B4423; margin-bottom: 0.5rem;">Tagline:</label>
+                <input type="text" id="cafeTaglineInput" placeholder="Where Every Sip Tells a Story" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-weight: bold; color: #6B4423; margin-bottom: 0.5rem;">Subtitle:</label>
+                <input type="text" id="cafeSubtitleInput" placeholder="Premium Beverages & Delights" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+            </div>
+            
+            <button class="confirm-btn" onclick="saveBrandingSettings()" style="width: 100%;">✅ Save Changes</button>
+            
+            <div style="margin-top: 1rem; padding: 1rem; background: #fff3cd; border-radius: 8px; font-size: 0.9rem;">
+                <strong>⚠️ Note:</strong> Changes will apply immediately. Refresh the page to see updates everywhere.
+            </div>
+        </div>
+    </div>
+
+    <script src="cafe-script.js"></script>
+</body>
+</html>
