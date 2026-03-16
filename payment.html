@@ -119,7 +119,11 @@
             const res = await fetch(SYNC_URL + '?t=' + Date.now());
             const data = await res.json();
             document.getElementById('syncStatus').textContent = 'Last sync: ' + new Date().toLocaleTimeString();
-            return data.orders || [];
+            // Handle both formats
+            if (data.orders && Array.isArray(data.orders)) return data.orders;
+            if (data.currentPayment && data.currentPayment.token) return [data.currentPayment];
+            if (data.token) return [data];
+            return [];
         } catch(e) {
             document.getElementById('syncStatus').textContent = '⚠️ Sync failed - retrying...';
             return null;

@@ -228,7 +228,8 @@
                         <button onclick="toggleQREdit()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📱 UPI Settings</button>
                         <button onclick="showCafeCardPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">💳 Cafe Card</button>
                         <button onclick="showBrandingSettings()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">🎨 Cafe Name & Branding</button>
-                        <button onclick="showSettingsPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">⚙️ Settings</button>
+                        <button onclick="showSettingsPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">⚙️ Settings</button>
+                        <button onclick="showOnlineOrdersAdmin()" style="width: 100%; padding: 0.5rem; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">📱 Online Orders</button>
                     </div>
                     <div id="qrEditPanel" style="display: none; position: absolute; right: 0; top: 2.5rem; background: white; border: 2px solid #6B4423; border-radius: 8px; padding: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; min-width: 200px;">
                         <h4 style="color: #6B4423; margin: 0 0 0.5rem 0; font-size: 0.9rem;">UPI Settings</h4>
@@ -434,5 +435,13 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script src="cafe-script.js"></script>
+<!-- Online Orders Admin Modal -->
+<div id="onlineOrdersModal" class="modal">
+    <div class="modal-content" style="max-width:700px;max-height:90vh;overflow-y:auto;">
+        <span class="close" onclick="closeOnlineOrdersAdmin()">&times;</span>
+        <h2 style="color:#6B4423;margin-bottom:1rem;">📱 Online Orders</h2>
+        <div id="onlineOrdersList"><p style="text-align:center;color:#999;">Loading...</p></div>
+    </div>
+</div>
 </body>
 </html>
