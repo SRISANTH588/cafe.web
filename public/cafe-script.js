@@ -155,55 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Show pending orders float
 function showPendingFloat() {
-    const pendingOrders = orders.filter(o => o.payment === 'online' && o.status === 'pending');
-    
-    let existingFloat = document.getElementById('pendingFloat');
+    const existingFloat = document.getElementById('pendingFloat');
     if (existingFloat) existingFloat.remove();
-    
-    if (pendingOrders.length === 0) return;
-    
-    const floatDiv = document.createElement('div');
-    floatDiv.id = 'pendingFloat';
-    floatDiv.style.cssText = 'position: fixed; right: 20px; top: 120px; width: 280px; background: linear-gradient(135deg, #6B4423, #8B5A3C); border: 3px solid #FFD700; border-radius: 15px; padding: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.4); z-index: 999; animation: slideIn 0.5s ease;';
-    
-    floatDiv.innerHTML = `
-        <style>
-            @keyframes slideIn {
-                from { transform: translateX(400px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            .pending-item {
-                background: rgba(255,215,0,0.2);
-                border: 2px solid #FFD700;
-                border-radius: 10px;
-                padding: 0.8rem;
-                margin-bottom: 0.8rem;
-                transition: all 0.3s ease;
-            }
-            .pending-item:hover {
-                transform: translateX(-5px);
-                box-shadow: 0 5px 15px rgba(255,215,0,0.3);
-            }
-        </style>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 2px solid #FFD700; padding-bottom: 0.5rem;">
-            <h3 style="margin: 0; color: #FFD700; font-size: 1.1rem;">🔔 Pending Payments</h3>
-            <button onclick="document.getElementById('pendingFloat').remove()" style="background: none; border: none; color: #FFD700; font-size: 1.5rem; cursor: pointer;">&times;</button>
-        </div>
-        <div style="max-height: 400px; overflow-y: auto;">
-            ${pendingOrders.map(order => `
-                <div class="pending-item">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                        <span style="font-size: 1.3rem; font-weight: bold; color: #FFD700;">🎫 #${order.token}</span>
-                        <span style="font-size: 1.2rem; font-weight: bold; color: #fff;">₹${order.total}</span>
-                    </div>
-                    <div style="font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-bottom: 0.3rem;">⏰ ${order.time}</div>
-                    <button onclick="markPendingPaid(${order.token})" style="width: 100%; padding: 0.5rem; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 0.5rem;">✅ Mark Paid</button>
-                </div>
-            `).join('')}
-        </div>
-    `;
-    
-    document.body.appendChild(floatDiv);
 }
 
 // Online Payment View
