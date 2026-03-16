@@ -116,10 +116,13 @@
 
     async function fetchOrders() {
         try {
-            const res = await fetch(SYNC_URL + '?action=getPayments&t=' + Date.now());
+            const res = await fetch(SYNC_URL + '?t=' + Date.now());
             const data = await res.json();
             document.getElementById('syncStatus').textContent = 'Last sync: ' + new Date().toLocaleTimeString();
-            return data.orders || [];
+            // Apps Script returns { currentPayment: {...} }
+            const payment = data.currentPayment || data;
+            if (payment && payment.token) return [payment];
+            return [];
         } catch(e) {
             document.getElementById('syncStatus').textContent = '⚠️ Sync failed - retrying...';
             return null;
@@ -131,7 +134,7 @@
         const fetched = await fetchOrders();
         if (fetched === null) return;
 
-        orders = fetched.filter(o => o.status !== 'paid');
+        orders = fetched;
 
         if (orders.length === 0) {
             showEmpty();
