@@ -2,7 +2,7 @@
 // =============================================
 // GOOGLE APPS SCRIPT SYNC
 // =============================================
-const SYNC_URL = 'https://script.google.com/macros/s/AKfycbxoOxrxlZFPXupS10eoLPbJQ5nwEzsT75iXtycodSawNYNwlZWuyFCT4Xte3mGDw7-C/exec';
+const SYNC_URL = 'https://script.google.com/macros/s/AKfycbxTYTtj71gEafhtZsN9PDZF7wq0gS5PxWs71GN6FWurquput_ZWeMFLrLrKizSab20c/exec';
 
 // Save current payment to Google Sheet
 async function saveCurrentPayment(orderData) {
