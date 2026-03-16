@@ -8,16 +8,10 @@ const SYNC_URL = 'https://script.google.com/macros/s/AKfycbwRuH5JfdfobGRPxs-esB9
 async function saveCurrentPayment(orderData) {
     localStorage.setItem('currentPayment', JSON.stringify(orderData));
     try {
-        const payload = { currentPayment: orderData, timestamp: Date.now() };
-        const form = new FormData();
-        form.append('data', JSON.stringify(payload));
-        await fetch(SYNC_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: form
-        });
+        const payload = encodeURIComponent(JSON.stringify({ currentPayment: orderData }));
+        await fetch(SYNC_URL + '?data=' + payload, { mode: 'no-cors' });
     } catch(e) {
-        console.log('Sync failed, using localStorage only');
+        console.log('Sync failed');
     }
 }
 
