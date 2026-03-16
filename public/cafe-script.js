@@ -15,6 +15,28 @@ async function saveCurrentPayment(orderData) {
     }
 }
 
+// Poll for paid notifications from payment.html
+function startPaidNotificationPolling() {
+    setInterval(async () => {
+        try {
+            const res = await fetch(SYNC_URL + '?getpaid=1&t=' + Date.now());
+            const data = await res.json();
+            if (data.paidToken) {
+                // Mark order as paid
+                const order = orders.find(o => o.token === data.paidToken);
+                if (order && order.status !== 'paid') {
+                    order.status = 'paid';
+                    localStorage.setItem('ayyanOrders', JSON.stringify(orders));
+                    displayOrders();
+                    showNotification(`💰 Token #${data.paidToken} - ₹${data.total} Payment Received!`, 'success');
+                    // Clear the paid notification from sheet
+                    new Image().src = SYNC_URL + '?clearpaid=1';
+                }
+            }
+        } catch(e) {}
+    }, 3000);
+}
+
 // Save order to Google Sheet
 async function saveOrder(order) {
     try {
@@ -55,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateOrderSummary();
     updateStatistics();
     showPendingFloat();
+    startPaidNotificationPolling();
     
     // Hide loading screen after 2 seconds
     setTimeout(() => {
