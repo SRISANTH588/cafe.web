@@ -123,7 +123,7 @@
     let index = 0;
     let autoOn = true;
     let lastToken = null;
-    let savedCafeName = sessionStorage.getItem('cafeName') || '';
+    let savedCafeName = localStorage.getItem('cafeName') || '';
     if (savedCafeName) document.getElementById('cafeName').textContent = '☕ ' + savedCafeName;
 
     function showNotif(msg, type = 'success') {
@@ -280,7 +280,7 @@
         .then(r => r.json())
         .then(data => {
             const name = data.cafeName || (data.orders && data.orders[0] && data.orders[0].cafeName) || '';
-            if (name) { savedCafeName = name; sessionStorage.setItem('cafeName', name); document.getElementById('cafeName').textContent = '☕ ' + name; }
+            if (name) { savedCafeName = name; localStorage.setItem('cafeName', name); document.getElementById('cafeName').textContent = '☕ ' + name; }
         }).catch(() => {});
 
     document.addEventListener('keydown', e => {
