@@ -123,6 +123,7 @@
     let index = 0;
     let autoOn = true;
     let lastToken = null;
+    let savedCafeName = '';
 
     function showNotif(msg, type = 'success') {
         const bar = document.getElementById('notifBar');
@@ -174,8 +175,8 @@
     function render(order) {
         if (!order) return showEmpty();
 
-        const cafeName = order.cafeName || document.getElementById('cafeName').textContent.replace('☕ ', '') || '';
-        document.getElementById('cafeName').textContent = '☕ ' + cafeName;
+        const cafeName = order.cafeName || savedCafeName || '';
+        if (cafeName) { savedCafeName = cafeName; document.getElementById('cafeName').textContent = '☕ ' + cafeName; }
         document.getElementById('tokenNumber').textContent = order.token || '-';
         document.getElementById('totalAmount').textContent = order.total || '0';
         document.getElementById('upiId').textContent = '💳 ' + (order.upiId || 'UPI ID not set');
@@ -214,6 +215,7 @@
         document.getElementById('counter').textContent = 'No pending orders';
         document.getElementById('prevBtn').disabled = true;
         document.getElementById('nextBtn').disabled = true;
+        // Never clear cafe name
     }
 
     function updateNav() {
@@ -277,7 +279,7 @@
         .then(r => r.json())
         .then(data => {
             const name = data.cafeName || (data.orders && data.orders[0] && data.orders[0].cafeName) || '';
-            if (name) document.getElementById('cafeName').textContent = '☕ ' + name;
+            if (name) { savedCafeName = name; document.getElementById('cafeName').textContent = '☕ ' + name; }
         }).catch(() => {});
 
     document.addEventListener('keydown', e => {
