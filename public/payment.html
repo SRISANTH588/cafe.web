@@ -119,12 +119,7 @@
             const res = await fetch(SYNC_URL + '?t=' + Date.now());
             const data = await res.json();
             document.getElementById('syncStatus').textContent = 'Last sync: ' + new Date().toLocaleTimeString();
-            // Apps Script returns the raw saved data - parse currentPayment from it
-            let payment = null;
-            if (data.currentPayment) payment = data.currentPayment;
-            else if (data.token) payment = data;
-            if (payment && payment.token) return [payment];
-            return [];
+            return data.orders || [];
         } catch(e) {
             document.getElementById('syncStatus').textContent = '⚠️ Sync failed - retrying...';
             return null;
@@ -228,12 +223,7 @@
         document.getElementById('confirmBtn').textContent = '✅ Confirmed';
 
         try {
-            await fetch(SYNC_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'confirmPayment', token: order.token })
-            });
+            new Image().src = SYNC_URL + '?confirm=' + order.token;
         } catch(e) {}
 
         setTimeout(() => {

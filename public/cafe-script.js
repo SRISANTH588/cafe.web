@@ -8,8 +8,7 @@ const SYNC_URL = 'https://script.google.com/macros/s/AKfycby0iODTYo1xjPzRs0pgUMQ
 async function saveCurrentPayment(orderData) {
     localStorage.setItem('currentPayment', JSON.stringify(orderData));
     try {
-        const payload = encodeURIComponent(JSON.stringify({ currentPayment: orderData }));
-        // Use Image trick - works cross-origin without CORS issues
+        const payload = encodeURIComponent(JSON.stringify(orderData));
         new Image().src = SYNC_URL + '?data=' + payload;
     } catch(e) {
         console.log('Sync failed');
