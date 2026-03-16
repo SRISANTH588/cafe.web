@@ -156,6 +156,8 @@
     function render(order) {
         if (!order) return showEmpty();
 
+        const cafeName = order.cafeName || 'Ayyan Cafe';
+        document.getElementById('cafeName').textContent = '☕ ' + cafeName;
         document.getElementById('tokenNumber').textContent = order.token || '-';
         document.getElementById('totalAmount').textContent = order.total || '0';
         document.getElementById('upiId').textContent = '💳 ' + (order.upiId || 'UPI ID not set');
@@ -177,7 +179,7 @@
         const qrDiv = document.getElementById('qrcode');
         qrDiv.innerHTML = '';
         if (order.upiId && order.total) {
-            const upi = `upi://pay?pa=${order.upiId}&pn=AyyanCafe&am=${order.total}&cu=INR&tn=Token${order.token}`;
+            const upi = `upi://pay?pa=${order.upiId}&pn=${encodeURIComponent(cafeName)}&am=${order.total}&cu=INR&tn=Token${order.token}`;
             new QRCode(qrDiv, { text: upi, width: 260, height: 260, colorDark: '#6B4423', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
         }
     }
@@ -238,9 +240,8 @@
         }, 1500);
     }
 
-    // Init
-    const name = localStorage.getItem('cafeName') || 'Ayyan Cafe';
-    document.getElementById('cafeName').textContent = '☕ ' + name;
+    // Init - get cafe name from Apps Script data, fallback to default
+    document.getElementById('cafeName').textContent = '☕ Ayyan Cafe';
 
     refresh();
     setInterval(refresh, 2000);

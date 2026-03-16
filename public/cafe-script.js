@@ -428,7 +428,8 @@ function confirmOrder(paymentMethod) {
                 token: order.token,
                 total: total,
                 items: billItems,
-                upiId: upiId
+                upiId: upiId,
+                cafeName: localStorage.getItem('cafeName') || 'Ayyan Cafe'
             };
             
             // Save to localStorage for the payment page
