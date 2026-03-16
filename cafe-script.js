@@ -1,4 +1,38 @@
-// Menu items with prices
+// Firebase Configuration
+// =============================================
+// GOOGLE APPS SCRIPT SYNC
+// =============================================
+const SYNC_URL = 'https://script.google.com/macros/s/AKfycbxoOxrxlZFPXupS10eoLPbJQ5nwEzsT75iXtycodSawNYNwlZWuyFCT4Xte3mGDw7-C/exec';
+
+// Save current payment to Google Sheet
+async function saveCurrentPayment(orderData) {
+    localStorage.setItem('currentPayment', JSON.stringify(orderData));
+    try {
+        await fetch(SYNC_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ currentPayment: orderData, timestamp: Date.now() })
+        });
+    } catch(e) {
+        console.log('Sync failed, using localStorage only');
+    }
+}
+
+// Save order to Google Sheet
+async function saveOrder(order) {
+    try {
+        await fetch(SYNC_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ order: order, timestamp: Date.now() })
+        });
+    } catch(e) {
+        console.log('Order sync failed');
+    }
+}
+
 const menu = {
     coffee: { name: 'Coffee', price: 30 },
     tea: { name: 'Tea', price: 30 },
@@ -403,6 +437,8 @@ function confirmOrder(paymentMethod) {
             
             // Save to localStorage for the payment page
             localStorage.setItem('currentPayment', JSON.stringify(orderData));
+            saveCurrentPayment(orderData);
+            saveOrder(order);
             
             showNotification('Payment data updated! Check payment window.', 'success');
         }
