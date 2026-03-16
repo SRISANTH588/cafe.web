@@ -1,5 +1,7 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/cafe.html" }
+    { "source": "/", "destination": "/public/cafe.html" },
+    { "source": "/payment.html", "destination": "/public/payment.html" },
+    { "source": "/cafe.html", "destination": "/public/cafe.html" }
   ]
 }
