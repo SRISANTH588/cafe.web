@@ -833,8 +833,11 @@ function displayOrders(filteredOrders = null) {
                     <div class="order-total">Total: ₹${order.total}</div>
                     ${order.payment === 'online' ? `
                     <div style="text-align:center;margin-top:0.8rem;">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent('upi://pay?pa=' + (localStorage.getItem('upiID') || 'merchant@upi') + '&pn=AyyanCafe&am=' + order.total + '&cu=INR&tn=Token' + order.token)}" style="border:3px solid #6B4423;border-radius:8px;width:120px;height:120px;" alt="QR">
-                        <div style="font-size:0.8rem;color:#6B4423;font-weight:bold;margin-top:0.3rem;">Scan to Pay ₹${order.total}</div>
+                        <button onclick="toggleQR(this)" style="padding:0.4rem 1rem;background:#007bff;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:bold;font-size:0.85rem;">📱 Show QR</button>
+                        <div class="qr-toggle" style="display:none;margin-top:0.6rem;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent('upi://pay?pa=' + (localStorage.getItem('upiID') || 'merchant@upi') + '&pn=AyyanCafe&am=' + order.total + '&cu=INR&tn=Token' + order.token)}" style="border:3px solid #6B4423;border-radius:8px;width:130px;height:130px;" alt="QR">
+                            <div style="font-size:0.8rem;color:#6B4423;font-weight:bold;margin-top:0.3rem;">Scan to Pay ₹${order.total}</div>
+                        </div>
                     </div>` : ''}
                 </div>
                 <div class="order-actions">
@@ -1002,6 +1005,14 @@ function printBill() {
     printWindow.document.close();
     printWindow.focus();
     setTimeout(() => printWindow.print(), 250);
+}
+
+function toggleQR(btn) {
+    const qrDiv = btn.nextElementSibling;
+    const visible = qrDiv.style.display === 'block';
+    qrDiv.style.display = visible ? 'none' : 'block';
+    btn.textContent = visible ? '📱 Show QR' : '📱 Hide QR';
+    btn.style.background = visible ? '#007bff' : '#dc3545';
 }
 
 // Toggle stock status
