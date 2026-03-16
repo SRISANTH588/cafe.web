@@ -73,7 +73,7 @@
 
 <div class="container">
     <div class="header">
-        <h1 id="cafeName">☕ Ayyan Cafe</h1>
+        <h1 id="cafeName">☕</h1>
         <p>Online Payment Portal</p>
         <div class="status" id="statusBadge">⏳ Payment Pending</div>
     </div>
@@ -174,7 +174,7 @@
     function render(order) {
         if (!order) return showEmpty();
 
-        const cafeName = order.cafeName || 'Ayyan Cafe';
+        const cafeName = order.cafeName || document.getElementById('cafeName').textContent.replace('☕ ', '') || '';
         document.getElementById('cafeName').textContent = '☕ ' + cafeName;
         document.getElementById('tokenNumber').textContent = order.token || '-';
         document.getElementById('totalAmount').textContent = order.total || '0';
@@ -276,8 +276,8 @@
     fetch(SYNC_URL + '?t=' + Date.now())
         .then(r => r.json())
         .then(data => {
-            const name = data.cafeName || (data.orders && data.orders[0] && data.orders[0].cafeName) || 'Ayyan Cafe';
-            document.getElementById('cafeName').textContent = '☕ ' + name;
+            const name = data.cafeName || (data.orders && data.orders[0] && data.orders[0].cafeName) || '';
+            if (name) document.getElementById('cafeName').textContent = '☕ ' + name;
         }).catch(() => {});
 
     document.addEventListener('keydown', e => {
