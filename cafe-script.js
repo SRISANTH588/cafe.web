@@ -978,29 +978,29 @@ function printBill() {
         <head>
             <title>Bill - Ayyan Cafe</title>
             <style>
-                @page { size: 2in auto; margin: 0; }
-                body { width: 2in; margin: 0; padding: 0.1in; font-family: monospace; font-size: 9px; }
-                .bill-header { text-align: center; border-bottom: 1px dashed #000; padding-bottom: 5px; margin-bottom: 5px; }
-                .bill-header h2 { font-size: 12px; margin: 2px 0; }
-                .bill-header p { font-size: 8px; margin: 2px 0; }
-                .bill-info p { font-size: 8px; margin: 2px 0; }
-                .bill-items { margin: 5px 0; }
-                .bill-item { display: flex; justify-content: space-between; font-size: 8px; padding: 2px 0; border-bottom: 1px dotted #ccc; }
-                .bill-total { border-top: 1px solid #000; padding-top: 5px; margin-top: 5px; font-size: 10px; font-weight: bold; text-align: right; }
-                .bill-footer { margin-top: 5px; border-top: 1px dashed #000; padding-top: 5px; }
-                .bill-footer p { font-size: 7px; text-align: center; margin: 3px 0; }
-                .terms-conditions { margin: 5px 0; }
-                .terms-conditions h4 { font-size: 8px; margin: 3px 0; }
+                @page { size: A4; margin: 10mm; }
+                body { margin: 0; padding: 0; font-family: monospace; font-size: 14px; }
+                .bill-copy { width: 100%; padding: 1rem; page-break-after: always; }
+                .bill-copy:last-child { page-break-after: avoid; }
+                .bill-header { text-align: center; border-bottom: 2px dashed #000; padding-bottom: 10px; margin-bottom: 10px; }
+                .bill-header h2 { font-size: 22px; margin: 4px 0; }
+                .bill-header p { font-size: 14px; margin: 4px 0; }
+                .bill-info p { font-size: 13px; margin: 4px 0; }
+                .bill-items { margin: 10px 0; }
+                .bill-item { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px dotted #ccc; }
+                .bill-total { border-top: 2px solid #000; padding-top: 10px; margin-top: 10px; font-size: 18px; font-weight: bold; text-align: right; }
+                .bill-footer { margin-top: 10px; border-top: 2px dashed #000; padding-top: 10px; }
+                .bill-footer p { font-size: 12px; text-align: center; margin: 5px 0; }
+                .terms-conditions { margin: 10px 0; }
+                .terms-conditions h4 { font-size: 13px; margin: 5px 0; }
                 .terms-conditions ul { list-style: none; padding: 0; margin: 0; }
-                .terms-conditions li { font-size: 7px; padding: 1px 0; }
+                .terms-conditions li { font-size: 12px; padding: 2px 0; }
                 img { max-width: 100%; height: auto; }
-                .divider { border-top: 1px dashed #000; margin: 8px 0; }
             </style>
         </head>
         <body>
-            ${billContent}${changeSection}
-            <div class="divider"></div>
-            ${billContent}${changeSection}
+            <div class="bill-copy">${billContent}${changeSection}</div>
+            <div class="bill-copy">${billContent}${changeSection}</div>
         </body>
         </html>
     `);
