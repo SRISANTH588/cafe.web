@@ -994,9 +994,12 @@ function printBill() {
                 .terms-conditions ul { list-style: none; padding: 0; margin: 0; }
                 .terms-conditions li { font-size: 7px; padding: 1px 0; }
                 img { max-width: 100%; height: auto; }
+                .divider { border-top: 1px dashed #000; margin: 8px 0; }
             </style>
         </head>
         <body>
+            ${billContent}${changeSection}
+            <div class="divider"></div>
             ${billContent}${changeSection}
         </body>
         </html>
