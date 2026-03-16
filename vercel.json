@@ -1,3 +1,13 @@
 {
-  "outputDirectory": "public"
+  "version": 2,
+  "builds": [
+    { "src": "public/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/public/index.html" },
+    { "src": "/cafe.html", "dest": "/public/cafe.html" },
+    { "src": "/payment.html", "dest": "/public/payment.html" },
+    { "src": "/cafe-script.js", "dest": "/public/cafe-script.js" },
+    { "src": "/cafe-styles.css", "dest": "/public/cafe-styles.css" }
+  ]
 }
