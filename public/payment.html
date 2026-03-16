@@ -272,6 +272,14 @@
     refresh();
     setInterval(refresh, 2000);
 
+    // Load cafe name immediately on open
+    fetch(SYNC_URL + '?t=' + Date.now())
+        .then(r => r.json())
+        .then(data => {
+            const name = data.cafeName || (data.orders && data.orders[0] && data.orders[0].cafeName) || 'Ayyan Cafe';
+            document.getElementById('cafeName').textContent = '☕ ' + name;
+        }).catch(() => {});
+
     document.addEventListener('keydown', e => {
         if (e.key === 'ArrowLeft') navigate(-1);
         if (e.key === 'ArrowRight') navigate(1);

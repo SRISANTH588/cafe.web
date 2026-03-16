@@ -1367,11 +1367,12 @@ function saveBrandingSettings() {
     localStorage.setItem('cafeTagline', cafeTagline);
     localStorage.setItem('cafeSubtitle', cafeSubtitle);
     
-    // Update page immediately
-    updateBranding();
+    // Push cafe name to Apps Script so payment.html gets it
+    new Image().src = SYNC_URL + '?setname=' + encodeURIComponent(cafeName);
     
+    updateBranding();
     closeBrandingSettings();
-    showNotification('Branding updated successfully! Refresh to see all changes.', 'success');
+    showNotification('Branding updated successfully!', 'success');
 }
 
 // Update Branding on Page
