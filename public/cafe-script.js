@@ -9,7 +9,8 @@ async function saveCurrentPayment(orderData) {
     localStorage.setItem('currentPayment', JSON.stringify(orderData));
     try {
         const payload = encodeURIComponent(JSON.stringify({ currentPayment: orderData }));
-        await fetch(SYNC_URL + '?data=' + payload, { mode: 'no-cors' });
+        // Use Image trick - works cross-origin without CORS issues
+        new Image().src = SYNC_URL + '?data=' + payload;
     } catch(e) {
         console.log('Sync failed');
     }
