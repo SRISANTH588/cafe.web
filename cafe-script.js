@@ -29,12 +29,75 @@ function startPaidNotificationPolling() {
                     localStorage.setItem('ayyanOrders', JSON.stringify(orders));
                     displayOrders();
                     showNotification(`💰 Token #${data.paidToken} - ₹${data.total} Payment Received!`, 'success');
+                    addBellNotification(data);
                     // Clear the paid notification from sheet
                     new Image().src = SYNC_URL + '?clearpaid=1';
                 }
             }
         } catch(e) {}
     }, 3000);
+}
+
+let bellNotifications = JSON.parse(localStorage.getItem('bellNotifications') || '[]');
+
+function addBellNotification(data) {
+    const notif = {
+        token: data.paidToken,
+        total: data.total,
+        items: data.items || [],
+        time: new Date().toLocaleTimeString('en-IN'),
+        id: Date.now()
+    };
+    bellNotifications.unshift(notif);
+    if (bellNotifications.length > 20) bellNotifications.pop();
+    localStorage.setItem('bellNotifications', JSON.stringify(bellNotifications));
+    updateBellBadge();
+    renderBellList();
+}
+
+function updateBellBadge() {
+    const badge = document.getElementById('bellBadge');
+    if (!badge) return;
+    if (bellNotifications.length > 0) {
+        badge.style.display = 'block';
+        badge.textContent = bellNotifications.length > 9 ? '9+' : bellNotifications.length;
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+function renderBellList() {
+    const list = document.getElementById('bellList');
+    if (!list) return;
+    if (bellNotifications.length === 0) {
+        list.innerHTML = '<p style="color:#999;text-align:center;font-size:0.9rem;">No notifications</p>';
+        return;
+    }
+    list.innerHTML = bellNotifications.map(n => `
+        <div style="background:#f8f9fa;border-left:4px solid #28a745;border-radius:8px;padding:0.8rem;margin-bottom:0.6rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+                <strong style="color:#6B4423;font-size:1rem;">🎫 Token #${n.token}</strong>
+                <span style="color:#28a745;font-weight:bold;font-size:1rem;">₹${n.total}</span>
+            </div>
+            <div style="font-size:0.8rem;color:#666;margin-bottom:0.3rem;">${n.items.map(i => i.name + ' × ' + i.qty).join(', ')}</div>
+            <div style="font-size:0.75rem;color:#999;">⏰ ${n.time}</div>
+        </div>
+    `).join('');
+}
+
+function toggleBellPanel() {
+    const panel = document.getElementById('bellPanel');
+    const menuPanel = document.getElementById('menuPanel');
+    menuPanel.style.display = 'none';
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    if (panel.style.display === 'block') renderBellList();
+}
+
+function clearAllNotifs() {
+    bellNotifications = [];
+    localStorage.setItem('bellNotifications', '[]');
+    updateBellBadge();
+    renderBellList();
 }
 
 // Save order to Google Sheet
@@ -78,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateStatistics();
     showPendingFloat();
     startPaidNotificationPolling();
+    updateBellBadge();
     
     // Hide loading screen after 2 seconds
     setTimeout(() => {
