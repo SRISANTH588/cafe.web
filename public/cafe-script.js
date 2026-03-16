@@ -831,6 +831,11 @@ function displayOrders(filteredOrders = null) {
                     </div>
                     ${noteHtml}
                     <div class="order-total">Total: ₹${order.total}</div>
+                    ${order.payment === 'online' ? `
+                    <div style="text-align:center;margin-top:0.8rem;">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent('upi://pay?pa=' + (localStorage.getItem('upiID') || 'merchant@upi') + '&pn=AyyanCafe&am=' + order.total + '&cu=INR&tn=Token' + order.token)}" style="border:3px solid #6B4423;border-radius:8px;width:120px;height:120px;" alt="QR">
+                        <div style="font-size:0.8rem;color:#6B4423;font-weight:bold;margin-top:0.3rem;">Scan to Pay ₹${order.total}</div>
+                    </div>` : ''}
                 </div>
                 <div class="order-actions">
                     <button class="action-btn edit-btn" onclick="editOrder(${actualIndex})" title="Edit this order">
