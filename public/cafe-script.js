@@ -1149,21 +1149,13 @@ function printOrderBill(index) {
 }
 // Notification system
 function showNotification(message, type = 'success') {
-    // Remove existing notification
-    const existing = document.querySelector('.notification');
-    if (existing) existing.remove();
-    
-    // Create notification
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-        notification.classList.add('fade-out');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
+    const bar = document.getElementById('notifBar');
+    const colors = { success: '#28a745', error: '#dc3545', info: '#007bff', warning: '#ffc107' };
+    bar.textContent = message;
+    bar.style.background = colors[type] || '#28a745';
+    bar.style.transform = 'translateY(0)';
+    clearTimeout(bar._timer);
+    bar._timer = setTimeout(() => { bar.style.transform = 'translateY(-100%)'; }, 4000);
 }
 
 // Daily Statement
