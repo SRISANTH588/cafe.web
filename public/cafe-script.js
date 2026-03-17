@@ -953,6 +953,7 @@ function printBill() {
     const billContent = document.getElementById('billContent').innerHTML;
     const cashGiven = parseInt(document.getElementById('cashGiven').value) || 0;
     const total = parseInt(document.getElementById('cashTotal').textContent) || 0;
+    const note = document.getElementById('orderNote')?.value?.trim() || '';
     
     let changeSection = '';
     if (cashGiven > 0 && cashGiven >= total) {
@@ -968,6 +969,13 @@ function printBill() {
             </div>
         `;
     }
+
+    // Kitchen copy - show special instructions prominently
+    const kitchenNote = note ? `
+        <div style="margin-top:15px;padding:12px;background:#fff3cd;border:3px solid #ff9800;border-radius:8px;">
+            <div style="font-size:16px;font-weight:bold;color:#e65100;margin-bottom:5px;">📝 SPECIAL INSTRUCTIONS:</div>
+            <div style="font-size:18px;font-weight:bold;color:#000;">${note}</div>
+        </div>` : '';
     
     const printWindow = window.open('', '_blank');
     
@@ -999,7 +1007,7 @@ function printBill() {
         </head>
         <body>
             <div class="bill-copy">${billContent}${changeSection}</div>
-            <div class="bill-copy">${billContent}${changeSection}</div>
+            <div class="bill-copy">${billContent}${changeSection}${kitchenNote}</div>
         </body>
         </html>
     `);
