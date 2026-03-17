@@ -1430,6 +1430,10 @@ function updateBranding() {
 
 // Initialize branding on page load
 document.addEventListener('DOMContentLoaded', function() {
+    // Force update to new name if old name detected
+    if (localStorage.getItem('cafeName') === 'Ayyan Cafe') {
+        localStorage.removeItem('cafeName');
+    }
     updateBranding();
 });
 
