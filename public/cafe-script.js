@@ -17,12 +17,12 @@ async function saveCurrentPayment(orderData) {
 
 // Poll for paid notifications from payment.html
 function startPaidNotificationPolling() {
+    let lastOrderCount = orders.filter(o => o.payment === 'online' && o.status === 'pending').length;
     setInterval(async () => {
         try {
             const res = await fetch(SYNC_URL + '?getpaid=1&t=' + Date.now());
             const data = await res.json();
             if (data.paidToken) {
-                // Mark order as paid
                 const order = orders.find(o => o.token === data.paidToken);
                 if (order && order.status !== 'paid') {
                     order.status = 'paid';
@@ -30,11 +30,17 @@ function startPaidNotificationPolling() {
                     displayOrders();
                     showNotification(`💰 Token #${data.paidToken} - ₹${data.total} Payment Received!`, 'success');
                     addBellNotification(data);
-                    // Clear the paid notification from sheet
                     new Image().src = SYNC_URL + '?clearpaid=1';
                 }
             }
         } catch(e) {}
+        // Notify new online order
+        const pendingOnline = orders.filter(o => o.payment === 'online' && o.status === 'pending').length;
+        if (pendingOnline > lastOrderCount) {
+            const newest = orders.find(o => o.payment === 'online' && o.status === 'pending');
+            if (newest) showNotification(`📱 New Online Order! Token #${newest.token} - ₹${newest.total}`, 'info');
+        }
+        lastOrderCount = pendingOnline;
     }, 3000);
 }
 

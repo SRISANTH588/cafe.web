@@ -107,7 +107,21 @@
         <div class="right-section">
             <div class="header">
                 <h2>📋 Orders</h2>
-                <div class="qr-corner" style="position: absolute; top: 1rem; right: 1rem; text-align: center;">
+                <div class="qr-corner" style="position: absolute; top: 1rem; right: 1rem; text-align: center; display:flex; gap:0.5rem; align-items:center;">
+                    <!-- Bell Notification -->
+                    <div style="position:relative;">
+                        <button onclick="toggleBellPanel()" style="background:none;border:none;cursor:pointer;font-size:1.5rem;color:#6B4423;position:relative;">
+                            🔔
+                            <span id="bellBadge" style="display:none;position:absolute;top:-4px;right:-4px;background:#dc3545;color:white;border-radius:50%;width:18px;height:18px;font-size:0.65rem;font-weight:bold;line-height:18px;text-align:center;">0</span>
+                        </button>
+                        <div id="bellPanel" style="display:none;position:absolute;right:0;top:2.5rem;background:white;border:2px solid #6B4423;border-radius:12px;padding:0.8rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);z-index:200;min-width:280px;max-height:400px;overflow-y:auto;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;border-bottom:2px solid #FFD700;padding-bottom:0.5rem;">
+                                <strong style="color:#6B4423;">💰 Payment Notifications</strong>
+                                <button onclick="clearAllNotifs()" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.8rem;font-weight:bold;">Clear All</button>
+                            </div>
+                            <div id="bellList"><p style="color:#999;text-align:center;font-size:0.9rem;">No notifications</p></div>
+                        </div>
+                    </div>
                     <button onclick="toggleMenu()" style="background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #6B4423;">☰</button>
                     <div id="menuPanel" style="display: none; position: absolute; right: 0; top: 2.5rem; background: white; border: 2px solid #6B4423; border-radius: 8px; padding: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; min-width: 200px;">
                         <button onclick="toggleQREdit()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📱 UPI Settings</button>
