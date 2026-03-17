@@ -115,10 +115,9 @@ async function saveOrder(order) {
 }
 
 const menu = {
-    coffee: { name: 'Coffee', price: 30 },
+    coffee: { name: 'Idly', price: 30 },
     tea: { name: 'Tea', price: 30 },
-    horlicks: { name: 'Horlicks/Boost', price: 25 },
-    maska: { name: 'Maska Bun', price: 45 }
+    horlicks: { name: 'Horlicks/Boost', price: 25 }
 };
 
 // Custom items and stock status
@@ -1050,10 +1049,10 @@ function loadStockStatus() {
 function showAddItemModal(category) {
     currentCategory = category;
     const titles = {
-        coffee: 'Add Coffee Item',
+        coffee: 'Add Tiffin Item',
         tea: 'Add Tea Item',
-        horlicks: 'Add Horlicks/Boost Item',
-        maska: 'Add Snack Item'
+        horlicks: 'Add Health Drink',
+        maska: 'Add Food Item'
     };
     document.getElementById('modalTitle').textContent = titles[category] || 'Add Custom Item';
     document.getElementById('addItemModal').style.display = 'flex';
@@ -1105,6 +1104,7 @@ function loadCustomItems() {
                         <input type="number" id="${item.id}-qty" value="0" min="0" readonly>
                         <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
                         <button class="stock-btn" id="${item.id}-stock" onclick="toggleStock('${item.id}')">✓</button>
+                        <button onclick="editCustomItem('${item.id}')" style="background:#ff9800;color:white;border:none;border-radius:5px;padding:0.3rem 0.5rem;cursor:pointer;font-size:0.85rem;">✏️</button>
                         <button class="delete-item-btn" onclick="deleteCustomItem('${item.id}')">🗑️</button>
                     </div>
                 </div>
@@ -1113,6 +1113,21 @@ function loadCustomItems() {
     });
     
     loadStockStatus();
+}
+
+// Edit custom item
+function editCustomItem(id) {
+    const item = customItems.find(i => i.id === id);
+    if (!item) return;
+    const newName = prompt('Edit item name:', item.name);
+    if (!newName) return;
+    const newPrice = prompt('Edit item price:', item.price);
+    if (!newPrice || isNaN(newPrice)) return;
+    item.name = newName.trim();
+    item.price = parseInt(newPrice);
+    localStorage.setItem('customItems', JSON.stringify(customItems));
+    loadCustomItems();
+    showNotification(`${item.name} updated`, 'success');
 }
 
 // Delete custom item
