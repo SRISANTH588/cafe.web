@@ -1430,9 +1430,15 @@ function updateBranding() {
 
 // Initialize branding on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // Force update to new name if old name detected
-    if (localStorage.getItem('cafeName') === 'Ayyan Cafe') {
+    // Force clear old branding from localStorage
+    if (!localStorage.getItem('cafeName') || localStorage.getItem('cafeName') === 'Ayyan Cafe' || localStorage.getItem('cafeName') === 'Ayyan Tiffin') {
         localStorage.removeItem('cafeName');
+    }
+    if (!localStorage.getItem('cafeTagline') || localStorage.getItem('cafeTagline') === 'Where Every Sip Tells a Story') {
+        localStorage.removeItem('cafeTagline');
+    }
+    if (!localStorage.getItem('cafeSubtitle') || localStorage.getItem('cafeSubtitle') === 'Premium Beverages & Delights') {
+        localStorage.removeItem('cafeSubtitle');
     }
     updateBranding();
 });
