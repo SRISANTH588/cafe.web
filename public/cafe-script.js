@@ -340,14 +340,14 @@ function updateQuantity(item, change) {
     if (value > 0) {
         currentOrder[item] = value;
         if (['coffee', 'tea'].includes(item)) {
-            document.getElementById(`${item}-sugar`).style.display = 'block';
+            const sg = document.getElementById(`${item}-sugar`); if(sg) sg.style.display = 'block';
         }
     } else {
         delete currentOrder[item];
         if (['coffee', 'tea'].includes(item)) {
-            document.getElementById(`${item}-sugar`).style.display = 'none';
-            document.getElementById(`${item}-sugarfree-qty`).value = 0;
-            document.getElementById(`${item}-sugarfree-control`).style.display = 'none';
+            const sg2 = document.getElementById(`${item}-sugar`); if(sg2) sg2.style.display = 'none';
+            const sfq = document.getElementById(`${item}-sugarfree-qty`); if(sfq) sfq.value = 0;
+            const sfc = document.getElementById(`${item}-sugarfree-control`); if(sfc) sfc.style.display = 'none';
             const radios = document.getElementsByName(`${item}-sugar-option`);
             radios.forEach(r => r.checked = false);
         }
@@ -359,8 +359,8 @@ function updateQuantity(item, change) {
 function handleSugarOption(item, option) {
     const control = document.getElementById(`${item}-sugarfree-control`);
     const qtyInput = document.getElementById(`${item}-sugarfree-qty`);
-    const itemQty = parseInt(document.getElementById(`${item}-qty`).value) || 0;
-    
+    const itemQty = parseInt(document.getElementById(`${item}-qty`)?.value) || 0;
+    if (!control || !qtyInput) return;
     if (option === 'free') {
         control.style.display = 'block';
         qtyInput.value = itemQty;
@@ -373,7 +373,8 @@ function handleSugarOption(item, option) {
 
 function updateSugarFree(item, change) {
     const input = document.getElementById(`${item}-sugarfree-qty`);
-    const maxQty = parseInt(document.getElementById(`${item}-qty`).value) || 0;
+    if (!input) return;
+    const maxQty = parseInt(document.getElementById(`${item}-qty`)?.value) || 0;
     let value = parseInt(input.value) || 0;
     value = Math.max(0, Math.min(maxQty, value + change));
     input.value = value;
