@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ayyan Cafe - Order System</title>
+    <title>SLV TIFFINS VIJAYAWADA - Order System</title>
     <link rel="stylesheet" href="cafe-styles.css">
 </head>
 <body>
     <!-- Simple Loading Animation -->
     <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #6B4423, #8B5A3C); z-index: 10000; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease;">
         <div style="text-align: center;">
-            <div style="font-size: 6rem; margin-bottom: 1.5rem;">☕</div>
-            <h1 style="color: #FFD700; font-size: 2.5rem; margin: 0 0 0.5rem 0; font-weight: 600;">Ayyan Cafe</h1>
-            <p style="color: #FFF; font-size: 1.1rem; font-style: italic; margin: 0 0 2rem 0;">Where Every Sip Tells a Story</p>
+            <div style="font-size: 6rem; margin-bottom: 1.5rem;">🍱</div>
+            <h1 style="color: #FFD700; font-size: 2.5rem; margin: 0 0 0.5rem 0; font-weight: 600;">SLV TIFFINS VIJAYAWADA</h1>
+            <p style="color: #FFF; font-size: 1.1rem; font-style: italic; margin: 0 0 2rem 0;">Fresh & Tasty Every Day</p>
             <div style="width: 200px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 0 auto; overflow: hidden;">
                 <div style="width: 100%; height: 100%; background: #FFD700; animation: loading 2s ease;"></div>
             </div>
@@ -30,14 +30,14 @@
         <!-- Left Side - Order Section -->
         <div class="left-section">
             <div class="header">
-                <h1>☕ Ayyan Cafe</h1>
-                <p class="tagline">Where Every Sip Tells a Story</p>
-                <p class="subtitle">Premium Beverages & Delights</p>
+                <h1>🍱 SLV TIFFINS VIJAYAWADA</h1>
+                <p class="tagline">Fresh & Tasty Every Day</p>
+                <p class="subtitle">Home Style Tiffin & Meals</p>
             </div>
 
             <div class="menu">
                 <div class="menu-category">
-                    <h2 class="category-title">☕ Coffee</h2>
+                    <h2 class="category-title">🍱 Coffee</h2>
                     <div class="menu-item">
                         <div class="item-info">
                             <h3>Coffee</h3>
@@ -213,7 +213,7 @@
                 <div class="payment-buttons">
                     <button class="payment-btn" onclick="confirmOrder('cash')">💵 Cash Payment</button>
                     <button class="payment-btn online" onclick="confirmOrder('online')">📱 Online Payment</button>
-                    <button class="payment-btn" onclick="confirmOrder('cafecard')" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">💳 Cafe Card</button>
+                    <button class="payment-btn" onclick="confirmOrder('cafecard')" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">💳 Tiffin Card</button>
                 </div>
             </div>
         </div>
@@ -226,8 +226,8 @@
                     <button onclick="toggleMenu()" style="background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #6B4423;">☰</button>
                     <div id="menuPanel" style="display: none; position: absolute; right: 0; top: 2.5rem; background: white; border: 2px solid #6B4423; border-radius: 8px; padding: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; min-width: 200px;">
                         <button onclick="toggleQREdit()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📱 UPI Settings</button>
-                        <button onclick="showCafeCardPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">💳 Cafe Card</button>
-                        <button onclick="showBrandingSettings()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">🎨 Cafe Name & Branding</button>
+                        <button onclick="showCafeCardPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">💳 Tiffin Card</button>
+                        <button onclick="showBrandingSettings()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">🎨 Shop Name & Branding</button>
                         <button onclick="showSettingsPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">⚙️ Settings</button>
                     </div>
                     <div id="qrEditPanel" style="display: none; position: absolute; right: 0; top: 2.5rem; background: white; border: 2px solid #6B4423; border-radius: 8px; padding: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; min-width: 200px;">
@@ -313,11 +313,11 @@
         </div>
     </div>
     
-    <!-- Cafe Card Modal -->
+    <!-- Tiffin Card Modal -->
     <div id="cafeCardModal" class="modal">
         <div class="modal-content" style="max-width: 400px;">
             <span class="close" onclick="closeCafeCard()">&times;</span>
-            <h3 style="color: #6B4423; margin-bottom: 1rem;">💳 Cafe Card Payment</h3>
+            <h3 style="color: #6B4423; margin-bottom: 1rem;">💳 Tiffin Card Payment</h3>
             <p style="margin-bottom: 1rem;"><strong>Bill Amount:</strong> ₹<span id="cafeCardBillAmount">0</span></p>
             <input type="text" id="cafeCardNumber" placeholder="Enter Card Number" style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;" oninput="checkCardBalance()">
             <div id="cardBalanceDisplay" style="display: none; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin: 0.5rem 0; border: 2px solid #6B4423;">
@@ -340,11 +340,11 @@
         </div>
     </div>
     
-    <!-- Cafe Card Management Modal -->
+    <!-- Tiffin Card Management Modal -->
     <div id="cafeCardPanelModal" class="modal">
         <div class="modal-content" style="max-width: 700px; max-height: 90vh; overflow-y: auto;">
             <span class="close" onclick="closeCafeCardPanel()">&times;</span>
-            <h3 style="color: #6B4423; margin-bottom: 1rem;">💳 Cafe Card Management</h3>
+            <h3 style="color: #6B4423; margin-bottom: 1rem;">💳 Tiffin Card Management</h3>
             
             <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
                 <button onclick="showCardSection('create')" id="createBtn" class="confirm-btn" style="flex: 1; background: #6B4423;">Create Card</button>
@@ -388,7 +388,7 @@
             
             <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
                 <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.8rem; cursor: pointer;">
-                    <span style="font-weight: bold; color: #6B4423;">💳 Cafe Card Payment</span>
+                    <span style="font-weight: bold; color: #6B4423;">💳 Tiffin Card Payment</span>
                     <input type="checkbox" id="cafeCardToggle" onchange="toggleCafeCard()" style="width: 50px; height: 25px;">
                 </label>
             </div>
@@ -406,21 +406,21 @@
     <div id="brandingModal" class="modal">
         <div class="modal-content" style="max-width: 500px;">
             <span class="close" onclick="closeBrandingSettings()">&times;</span>
-            <h3 style="color: #6B4423; margin-bottom: 1rem;">🎨 Cafe Name & Branding</h3>
+            <h3 style="color: #6B4423; margin-bottom: 1rem;">🎨 Shop Name & Branding</h3>
             
             <div style="margin-bottom: 1rem;">
-                <label style="display: block; font-weight: bold; color: #6B4423; margin-bottom: 0.5rem;">Cafe Name:</label>
-                <input type="text" id="cafeNameInput" placeholder="Ayyan Cafe" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+                <label style="display: block; font-weight: bold; color: #6B4423; margin-bottom: 0.5rem;">Shop Name:</label>
+                <input type="text" id="cafeNameInput" placeholder="SLV TIFFINS VIJAYAWADA" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
             </div>
             
             <div style="margin-bottom: 1rem;">
                 <label style="display: block; font-weight: bold; color: #6B4423; margin-bottom: 0.5rem;">Tagline:</label>
-                <input type="text" id="cafeTaglineInput" placeholder="Where Every Sip Tells a Story" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+                <input type="text" id="cafeTaglineInput" placeholder="Fresh & Tasty Every Day" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
             </div>
             
             <div style="margin-bottom: 1rem;">
                 <label style="display: block; font-weight: bold; color: #6B4423; margin-bottom: 0.5rem;">Subtitle:</label>
-                <input type="text" id="cafeSubtitleInput" placeholder="Premium Beverages & Delights" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
+                <input type="text" id="cafeSubtitleInput" placeholder="Home Style Tiffin & Meals" style="width: 100%; padding: 0.8rem; border: 2px solid #6B4423; border-radius: 8px; font-size: 1rem;">
             </div>
             
             <button class="confirm-btn" onclick="saveBrandingSettings()" style="width: 100%;">✅ Save Changes</button>
