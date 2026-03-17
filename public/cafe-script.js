@@ -183,7 +183,7 @@ function displayOnlinePayment() {
     const order = pendingOrders[currentOnlinePaymentIndex];
     const allItems = getAllItems();
     const upiID = localStorage.getItem('upiID') || 'merchant@upi';
-    const merchantName = 'Ayyan Tiffin';
+    const merchantName = 'SLV TIFFINS VIJAYAWADA';
     const upiString = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(merchantName)}&am=${order.total}&cu=INR&mode=02`;
     const qrImgSrc = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiString)}`;
     
@@ -469,7 +469,7 @@ function confirmOrder(paymentMethod) {
                 total: total,
                 items: billItems,
                 upiId: upiId,
-                cafeName: localStorage.getItem('cafeName') || 'Ayyan Tiffin'
+                cafeName: localStorage.getItem('cafeName') || 'SLV TIFFINS VIJAYAWADA'
             };
             
             // Save to localStorage for the payment page
@@ -681,7 +681,7 @@ function showBillWithQR(order) {
     const upiID = localStorage.getItem("upiID") || "merchant@upi";
     const upiString = `upi://pay?pa=${upiID}&pn=Ayyan%20Cafe&am=${order.total}&cu=INR&mode=02`;
     const qrImgSrc = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
-    billContent.innerHTML = `<div class="bill-header"><h2>🍱 Ayyan Tiffin</h2><p>Scan QR to Pay</p></div><div style="text-align: center; margin: 1rem 0;"><img src="${qrImgSrc}" alt="Payment QR" style="width: 200px; height: 200px; border: 2px solid #6B4423; border-radius: 8px;"></div><div class="bill-info"><p><strong>Token:</strong> #${order.token}</p><p><strong>Total:</strong> ₹${order.total}</p></div><div class="bill-items">${itemsHtml}</div><div style="text-align: center; margin-top: 1rem;"><button onclick="confirmOnlinePayment()" style="width: 100%; padding: 1rem; background: #28a745; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 0.5rem;">✅ Payment Done - Send to Kitchen</button></div>`;
+    billContent.innerHTML = `<div class="bill-header"><h2>🍱 SLV TIFFINS VIJAYAWADA</h2><p>Scan QR to Pay</p></div><div style="text-align: center; margin: 1rem 0;"><img src="${qrImgSrc}" alt="Payment QR" style="width: 200px; height: 200px; border: 2px solid #6B4423; border-radius: 8px;"></div><div class="bill-info"><p><strong>Token:</strong> #${order.token}</p><p><strong>Total:</strong> ₹${order.total}</p></div><div class="bill-items">${itemsHtml}</div><div style="text-align: center; margin-top: 1rem;"><button onclick="confirmOnlinePayment()" style="width: 100%; padding: 1rem; background: #28a745; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 0.5rem;">✅ Payment Done - Send to Kitchen</button></div>`;
     document.getElementById("billModal").style.display = "flex";
 }
 function confirmOnlinePayment() {
@@ -696,7 +696,7 @@ function showBill(order) {
     const isParcel = order.orderType === 'parcel';
     
     // Get branding from localStorage
-    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Tiffin';
+    const cafeName = localStorage.getItem('cafeName') || 'SLV TIFFINS VIJAYAWADA';
     const cafeTagline = localStorage.getItem('cafeTagline') || 'Fresh & Tasty Every Day';
     
     let itemsHtml = '';
@@ -976,7 +976,7 @@ function printBill() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Bill - Ayyan Tiffin</title>
+            <title>Bill - SLV TIFFINS VIJAYAWADA</title>
             <style>
                 @page { size: A4; margin: 10mm; }
                 body { margin: 0; padding: 0; font-family: monospace; font-size: 14px; }
@@ -1216,7 +1216,7 @@ function showDailyStatement() {
     const statementContent = document.getElementById('statementContent');
     statementContent.innerHTML = `
         <div style="text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #6B4423;">
-            <h2 style="margin: 0; color: #6B4423;">🍱 Ayyan Tiffin</h2>
+            <h2 style="margin: 0; color: #6B4423;">🍱 SLV TIFFINS VIJAYAWADA</h2>
             <h3 style="margin: 0.5rem 0;">Daily Statement</h3>
             <p style="margin: 0.3rem 0;">${today}</p>
         </div>
@@ -1280,7 +1280,7 @@ function printStatement() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Daily Statement - Ayyan Tiffin</title>
+            <title>Daily Statement - SLV TIFFINS VIJAYAWADA</title>
             <style>
                 body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
                 h2, h3, h4 { color: #6B4423; }
@@ -1349,7 +1349,7 @@ function closeSettings() {
 
 // Show Branding Settings
 function showBrandingSettings() {
-    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Tiffin';
+    const cafeName = localStorage.getItem('cafeName') || 'SLV TIFFINS VIJAYAWADA';
     const cafeTagline = localStorage.getItem('cafeTagline') || 'Fresh & Tasty Every Day';
     const cafeSubtitle = localStorage.getItem('cafeSubtitle') || 'Home Style Tiffin & Meals';
     
@@ -1391,7 +1391,7 @@ function saveBrandingSettings() {
 
 // Update Branding on Page
 function updateBranding() {
-    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Tiffin';
+    const cafeName = localStorage.getItem('cafeName') || 'SLV TIFFINS VIJAYAWADA';
     const cafeTagline = localStorage.getItem('cafeTagline') || 'Fresh & Tasty Every Day';
     const cafeSubtitle = localStorage.getItem('cafeSubtitle') || 'Home Style Tiffin & Meals';
     
