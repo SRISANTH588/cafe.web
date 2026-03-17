@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="cafe-styles.css">
 </head>
 <body>
-    <!-- Notification Bar -->
-    <div id="notifBar" style="position:fixed;top:0;left:0;right:0;padding:1rem;text-align:center;font-weight:bold;font-size:1rem;z-index:9999;transform:translateY(-100%);transition:transform 0.4s ease;color:white;"></div>
     <!-- Simple Loading Animation -->
     <div id="loadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #6B4423, #8B5A3C); z-index: 10000; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease;">
         <div style="text-align: center;">
@@ -224,28 +222,13 @@
         <div class="right-section">
             <div class="header">
                 <h2>📋 Orders</h2>
-                <div class="qr-corner" style="position: absolute; top: 1rem; right: 1rem; text-align: center; display:flex; gap:0.5rem; align-items:center;">
-                    <!-- Bell Notification -->
-                    <div style="position:relative;">
-                        <button onclick="toggleBellPanel()" style="background:none;border:none;cursor:pointer;font-size:1.5rem;color:#6B4423;position:relative;">
-                            🔔
-                            <span id="bellBadge" style="display:none;position:absolute;top:-4px;right:-4px;background:#dc3545;color:white;border-radius:50%;width:18px;height:18px;font-size:0.65rem;font-weight:bold;line-height:18px;text-align:center;">0</span>
-                        </button>
-                        <div id="bellPanel" style="display:none;position:absolute;right:0;top:2.5rem;background:white;border:2px solid #6B4423;border-radius:12px;padding:0.8rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);z-index:200;min-width:280px;max-height:400px;overflow-y:auto;">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;border-bottom:2px solid #FFD700;padding-bottom:0.5rem;">
-                                <strong style="color:#6B4423;">💰 Payment Notifications</strong>
-                                <button onclick="clearAllNotifs()" style="background:none;border:none;cursor:pointer;color:#dc3545;font-size:0.8rem;font-weight:bold;">Clear All</button>
-                            </div>
-                            <div id="bellList"><p style="color:#999;text-align:center;font-size:0.9rem;">No notifications</p></div>
-                        </div>
-                    </div>
+                <div class="qr-corner" style="position: absolute; top: 1rem; right: 1rem; text-align: center;">
                     <button onclick="toggleMenu()" style="background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #6B4423;">☰</button>
                     <div id="menuPanel" style="display: none; position: absolute; right: 0; top: 2.5rem; background: white; border: 2px solid #6B4423; border-radius: 8px; padding: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; min-width: 200px;">
                         <button onclick="toggleQREdit()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">📱 UPI Settings</button>
                         <button onclick="showCafeCardPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">💳 Cafe Card</button>
                         <button onclick="showBrandingSettings()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">🎨 Cafe Name & Branding</button>
-                        <button onclick="showSettingsPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem;">⚙️ Settings</button>
-                        <button onclick="showOnlineOrdersAdmin()" style="width: 100%; padding: 0.5rem; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">📱 Online Orders</button>
+                        <button onclick="showSettingsPanel()" style="width: 100%; padding: 0.5rem; background: #6B4423; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold;">⚙️ Settings</button>
                     </div>
                     <div id="qrEditPanel" style="display: none; position: absolute; right: 0; top: 2.5rem; background: white; border: 2px solid #6B4423; border-radius: 8px; padding: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; min-width: 200px;">
                         <h4 style="color: #6B4423; margin: 0 0 0.5rem 0; font-size: 0.9rem;">UPI Settings</h4>
@@ -451,13 +434,5 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script src="cafe-script.js"></script>
-<!-- Online Orders Admin Modal -->
-<div id="onlineOrdersModal" class="modal">
-    <div class="modal-content" style="max-width:700px;max-height:90vh;overflow-y:auto;">
-        <span class="close" onclick="closeOnlineOrdersAdmin()">&times;</span>
-        <h2 style="color:#6B4423;margin-bottom:1rem;">📱 Online Orders</h2>
-        <div id="onlineOrdersList"><p style="text-align:center;color:#999;">Loading...</p></div>
-    </div>
-</div>
 </body>
 </html>

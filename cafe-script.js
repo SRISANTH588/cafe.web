@@ -183,7 +183,7 @@ function displayOnlinePayment() {
     const order = pendingOrders[currentOnlinePaymentIndex];
     const allItems = getAllItems();
     const upiID = localStorage.getItem('upiID') || 'merchant@upi';
-    const merchantName = 'Ayyan Cafe';
+    const merchantName = 'Ayyan Tiffin';
     const upiString = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(merchantName)}&am=${order.total}&cu=INR&mode=02`;
     const qrImgSrc = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiString)}`;
     
@@ -469,7 +469,7 @@ function confirmOrder(paymentMethod) {
                 total: total,
                 items: billItems,
                 upiId: upiId,
-                cafeName: localStorage.getItem('cafeName') || 'Ayyan Cafe'
+                cafeName: localStorage.getItem('cafeName') || 'Ayyan Tiffin'
             };
             
             // Save to localStorage for the payment page
@@ -681,7 +681,7 @@ function showBillWithQR(order) {
     const upiID = localStorage.getItem("upiID") || "merchant@upi";
     const upiString = `upi://pay?pa=${upiID}&pn=Ayyan%20Cafe&am=${order.total}&cu=INR&mode=02`;
     const qrImgSrc = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
-    billContent.innerHTML = `<div class="bill-header"><h2>☕ Ayyan Cafe</h2><p>Scan QR to Pay</p></div><div style="text-align: center; margin: 1rem 0;"><img src="${qrImgSrc}" alt="Payment QR" style="width: 200px; height: 200px; border: 2px solid #6B4423; border-radius: 8px;"></div><div class="bill-info"><p><strong>Token:</strong> #${order.token}</p><p><strong>Total:</strong> ₹${order.total}</p></div><div class="bill-items">${itemsHtml}</div><div style="text-align: center; margin-top: 1rem;"><button onclick="confirmOnlinePayment()" style="width: 100%; padding: 1rem; background: #28a745; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 0.5rem;">✅ Payment Done - Send to Kitchen</button></div>`;
+    billContent.innerHTML = `<div class="bill-header"><h2>🍱 Ayyan Tiffin</h2><p>Scan QR to Pay</p></div><div style="text-align: center; margin: 1rem 0;"><img src="${qrImgSrc}" alt="Payment QR" style="width: 200px; height: 200px; border: 2px solid #6B4423; border-radius: 8px;"></div><div class="bill-info"><p><strong>Token:</strong> #${order.token}</p><p><strong>Total:</strong> ₹${order.total}</p></div><div class="bill-items">${itemsHtml}</div><div style="text-align: center; margin-top: 1rem;"><button onclick="confirmOnlinePayment()" style="width: 100%; padding: 1rem; background: #28a745; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-bottom: 0.5rem;">✅ Payment Done - Send to Kitchen</button></div>`;
     document.getElementById("billModal").style.display = "flex";
 }
 function confirmOnlinePayment() {
@@ -696,8 +696,8 @@ function showBill(order) {
     const isParcel = order.orderType === 'parcel';
     
     // Get branding from localStorage
-    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Cafe';
-    const cafeTagline = localStorage.getItem('cafeTagline') || 'Where Every Sip Tells a Story';
+    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Tiffin';
+    const cafeTagline = localStorage.getItem('cafeTagline') || 'Fresh & Tasty Every Day';
     
     let itemsHtml = '';
     for (let item in order.items) {
@@ -730,7 +730,7 @@ function showBill(order) {
     
     billContent.innerHTML = `
         <div class="bill-header">
-            <h2>☕ ${cafeName}</h2>
+            <h2>🍱 ${cafeName}</h2>
             <p>${cafeTagline}</p>
         </div>
         <div class="bill-info">
@@ -976,7 +976,7 @@ function printBill() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Bill - Ayyan Cafe</title>
+            <title>Bill - Ayyan Tiffin</title>
             <style>
                 @page { size: A4; margin: 10mm; }
                 body { margin: 0; padding: 0; font-family: monospace; font-size: 14px; }
@@ -1216,7 +1216,7 @@ function showDailyStatement() {
     const statementContent = document.getElementById('statementContent');
     statementContent.innerHTML = `
         <div style="text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #6B4423;">
-            <h2 style="margin: 0; color: #6B4423;">☕ Ayyan Cafe</h2>
+            <h2 style="margin: 0; color: #6B4423;">🍱 Ayyan Tiffin</h2>
             <h3 style="margin: 0.5rem 0;">Daily Statement</h3>
             <p style="margin: 0.3rem 0;">${today}</p>
         </div>
@@ -1280,7 +1280,7 @@ function printStatement() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Daily Statement - Ayyan Cafe</title>
+            <title>Daily Statement - Ayyan Tiffin</title>
             <style>
                 body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
                 h2, h3, h4 { color: #6B4423; }
@@ -1329,7 +1329,7 @@ function saveUPIID() {
 
 
 
-// Cafe Card Settings
+// Tiffin Card Settings
 let cafeCardEnabled = localStorage.getItem('cafeCardEnabled') !== 'false';
 let freeBiscuitsEnabled = localStorage.getItem('freeBiscuitsEnabled') !== 'false';
 
@@ -1349,9 +1349,9 @@ function closeSettings() {
 
 // Show Branding Settings
 function showBrandingSettings() {
-    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Cafe';
-    const cafeTagline = localStorage.getItem('cafeTagline') || 'Where Every Sip Tells a Story';
-    const cafeSubtitle = localStorage.getItem('cafeSubtitle') || 'Premium Beverages & Delights';
+    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Tiffin';
+    const cafeTagline = localStorage.getItem('cafeTagline') || 'Fresh & Tasty Every Day';
+    const cafeSubtitle = localStorage.getItem('cafeSubtitle') || 'Home Style Tiffin & Meals';
     
     document.getElementById('cafeNameInput').value = cafeName;
     document.getElementById('cafeTaglineInput').value = cafeTagline;
@@ -1391,13 +1391,13 @@ function saveBrandingSettings() {
 
 // Update Branding on Page
 function updateBranding() {
-    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Cafe';
-    const cafeTagline = localStorage.getItem('cafeTagline') || 'Where Every Sip Tells a Story';
-    const cafeSubtitle = localStorage.getItem('cafeSubtitle') || 'Premium Beverages & Delights';
+    const cafeName = localStorage.getItem('cafeName') || 'Ayyan Tiffin';
+    const cafeTagline = localStorage.getItem('cafeTagline') || 'Fresh & Tasty Every Day';
+    const cafeSubtitle = localStorage.getItem('cafeSubtitle') || 'Home Style Tiffin & Meals';
     
     // Update header
     const headerH1 = document.querySelector('.header h1');
-    if (headerH1) headerH1.textContent = '☕ ' + cafeName;
+    if (headerH1) headerH1.textContent = '🍱 ' + cafeName;
     
     const taglineP = document.querySelector('.header .tagline');
     if (taglineP) taglineP.textContent = cafeTagline;
@@ -1418,12 +1418,12 @@ document.addEventListener('DOMContentLoaded', function() {
     updateBranding();
 });
 
-// Toggle Cafe Card
+// Toggle Tiffin Card
 function toggleCafeCard() {
     cafeCardEnabled = document.getElementById('cafeCardToggle').checked;
     localStorage.setItem('cafeCardEnabled', cafeCardEnabled);
     updatePaymentButtons();
-    showNotification(`Cafe Card Payment ${cafeCardEnabled ? 'Enabled' : 'Disabled'}`, 'success');
+    showNotification(`Tiffin Card Payment ${cafeCardEnabled ? 'Enabled' : 'Disabled'}`, 'success');
 }
 
 // Toggle Free Biscuits
@@ -1441,7 +1441,7 @@ function updatePaymentButtons() {
     }
 }
 
-// Cafe Card System
+// Tiffin Card System
 let cafeCards = JSON.parse(localStorage.getItem('cafeCards') || '[]');
 
 // Toggle Menu
@@ -1452,7 +1452,7 @@ function toggleMenu() {
     menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
 }
 
-// Show Cafe Card Panel
+// Show Tiffin Card Panel
 function showCafeCardPanel() {
     document.getElementById('cafeCardPanelModal').style.display = 'flex';
     showCardSection('create');
@@ -1483,12 +1483,12 @@ function showCardSection(section) {
     }
 }
 
-// Close Cafe Card Panel
+// Close Tiffin Card Panel
 function closeCafeCardPanel() {
     document.getElementById('cafeCardPanelModal').style.display = 'none';
 }
 
-// Create Cafe Card
+// Create Tiffin Card
 function createCafeCard() {
     const cardNumber = document.getElementById('newCardNumber').value.trim();
     const cardHolder = document.getElementById('newCardHolder').value.trim();
@@ -1532,11 +1532,11 @@ function createCafeCard() {
     document.getElementById('newCardBalance').value = '';
     document.getElementById('isPremium').checked = false;
     
-    showNotification(`${isPremium ? 'Premium ' : ''}Cafe Card created successfully!`, 'success');
+    showNotification(`${isPremium ? 'Premium ' : ''}Tiffin Card created successfully!`, 'success');
     showCardSection('view');
 }
 
-// Add Money to Cafe Card
+// Add Money to Tiffin Card
 function addMoneyToCafeCard() {
     const cardNumber = document.getElementById('addMoneyCardNumber').value.trim();
     const amount = parseInt(document.getElementById('addMoneyAmount').value) || 0;
@@ -1593,7 +1593,7 @@ function previewCardForAddMoney() {
     }
 }
 
-// Display Cafe Cards
+// Display Tiffin Cards
 function displayCafeCards() {
     const list = document.getElementById('cafeCardsList');
     const searchTerm = document.getElementById('searchCard')?.value.toLowerCase() || '';
@@ -1681,7 +1681,7 @@ function deleteCard(cardNumber) {
     }
 }
 
-// Close Cafe Card Modal
+// Close Tiffin Card Modal
 function closeCafeCard() {
     document.getElementById('cafeCardModal').style.display = 'none';
     document.getElementById('cardBalanceDisplay').style.display = 'none';
@@ -1739,7 +1739,7 @@ function checkCardBalance() {
     }
 }
 
-// Process Cafe Card Payment
+// Process Tiffin Card Payment
 function processCafeCardPayment() {
     const cardNumber = document.getElementById('cafeCardNumber').value.trim();
     const billAmount = parseInt(document.getElementById('cafeCardBillAmount').textContent);

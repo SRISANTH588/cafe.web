@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment - Ayyan Cafe</title>
+    <title>Payment - Ayyan Tiffin</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -73,7 +73,7 @@
 
 <div class="container">
     <div class="header">
-        <h1 id="cafeName">☕</h1>
+        <h1 id="cafeName">🍱</h1>
         <p>Online Payment Portal</p>
         <div class="status" id="statusBadge">⏳ Payment Pending</div>
     </div>
@@ -124,7 +124,7 @@
     let autoOn = true;
     let lastToken = null;
     let savedCafeName = localStorage.getItem('cafeName') || '';
-    if (savedCafeName) document.getElementById('cafeName').textContent = '☕ ' + savedCafeName;
+    if (savedCafeName) document.getElementById('cafeName').textContent = '🍱 ' + savedCafeName;
 
     function showNotif(msg, type = 'success') {
         const bar = document.getElementById('notifBar');
@@ -177,7 +177,7 @@
         if (!order) return showEmpty();
 
         const cafeName = order.cafeName || savedCafeName || '';
-        if (cafeName) { savedCafeName = cafeName; document.getElementById('cafeName').textContent = '☕ ' + cafeName; }
+        if (cafeName) { savedCafeName = cafeName; document.getElementById('cafeName').textContent = '🍱 ' + cafeName; }
         document.getElementById('tokenNumber').textContent = order.token || '-';
         document.getElementById('totalAmount').textContent = order.total || '0';
         document.getElementById('upiId').textContent = '💳 ' + (order.upiId || 'UPI ID not set');
@@ -280,7 +280,7 @@
         .then(r => r.json())
         .then(data => {
             const name = data.cafeName || (data.orders && data.orders[0] && data.orders[0].cafeName) || '';
-            if (name) { savedCafeName = name; localStorage.setItem('cafeName', name); document.getElementById('cafeName').textContent = '☕ ' + name; }
+            if (name) { savedCafeName = name; localStorage.setItem('cafeName', name); document.getElementById('cafeName').textContent = '🍱 ' + name; }
         }).catch(() => {});
 
     document.addEventListener('keydown', e => {
