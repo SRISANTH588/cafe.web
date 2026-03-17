@@ -48,29 +48,6 @@
                     <button class="add-item-btn" onclick="showAddItemModal('coffee')">+ Add Tiffin Item</button>
                 </div>
 
-                <div class="menu-category">
-                    <h2 class="category-title">☕ Tea & Coffee</h2>
-                    <div class="menu-item">
-                        <div class="item-info"><h3>Coffee</h3><p class="price">₹30</p></div>
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="updateQuantity('coffee', -1)">-</button>
-                            <input type="number" id="coffee-qty" value="0" min="0" readonly>
-                            <button class="qty-btn" onclick="updateQuantity('coffee', 1)">+</button>
-                            <button class="stock-btn" id="coffee-stock" onclick="toggleStock('coffee')">✓</button>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="item-info"><h3>Tea</h3><p class="price">₹30</p></div>
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="updateQuantity('tea', -1)">-</button>
-                            <input type="number" id="tea-qty" value="0" min="0" readonly>
-                            <button class="qty-btn" onclick="updateQuantity('tea', 1)">+</button>
-                            <button class="stock-btn" id="tea-stock" onclick="toggleStock('tea')">✓</button>
-                        </div>
-                    </div>
-                    <div id="customTea"></div>
-                    <button class="add-item-btn" onclick="showAddItemModal('tea')">+ Add Drink Item</button>
-                </div>
             </div>
 
             <div class="order-summary">
