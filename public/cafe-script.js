@@ -117,7 +117,7 @@ async function saveOrder(order) {
 const menu = {
     coffee: { name: 'Idly', price: 30 },
     tea: { name: 'Tea', price: 30 },
-    horlicks: { name: 'Horlicks/Boost', price: 25 }
+    
 };
 
 // Custom items and stock status
@@ -339,12 +339,12 @@ function updateQuantity(item, change) {
     
     if (value > 0) {
         currentOrder[item] = value;
-        if (['coffee', 'tea', 'horlicks'].includes(item)) {
+        if (['coffee', 'tea'].includes(item)) {
             document.getElementById(`${item}-sugar`).style.display = 'block';
         }
     } else {
         delete currentOrder[item];
-        if (['coffee', 'tea', 'horlicks'].includes(item)) {
+        if (['coffee', 'tea'].includes(item)) {
             document.getElementById(`${item}-sugar`).style.display = 'none';
             document.getElementById(`${item}-sugarfree-qty`).value = 0;
             document.getElementById(`${item}-sugarfree-control`).style.display = 'none';
@@ -407,7 +407,7 @@ function updateOrderSummary() {
     }
     
     // Add item-specific sugar-free
-    ['coffee', 'tea', 'horlicks'].forEach(item => {
+    ['coffee', 'tea'].forEach(item => {
         const qtyInput = document.getElementById(`${item}-sugarfree-qty`);
         const sugarFreeQty = qtyInput ? parseInt(qtyInput.value) || 0 : 0;
         if (sugarFreeQty > 0 && currentOrder[item]) {
@@ -499,7 +499,7 @@ function createOrderAndReturn(paymentMethod, total) {
     
     // Collect item-specific sugar-free data
     const itemSugarFree = {};
-    ['coffee', 'tea', 'horlicks'].forEach(item => {
+    ['coffee', 'tea'].forEach(item => {
         const qty = parseInt(document.getElementById(`${item}-sugarfree-qty`)?.value) || 0;
         if (qty > 0) itemSugarFree[item] = qty;
     });
@@ -530,7 +530,7 @@ function createOrderAndReturn(paymentMethod, total) {
     document.querySelector('input[name="orderType"][value="dine-in"]').checked = true;
     
     // Reset item-specific sugar-free
-    ['coffee', 'tea', 'horlicks'].forEach(item => {
+    ['coffee', 'tea'].forEach(item => {
         const sugarInput = document.getElementById(`${item}-sugarfree-qty`);
         if (sugarInput) sugarInput.value = 0;
         const sugarDiv = document.getElementById(`${item}-sugar`);
@@ -602,7 +602,7 @@ function createOrder(paymentMethod, total) {
     
     // Collect item-specific sugar-free data
     const itemSugarFree = {};
-    ['coffee', 'tea', 'horlicks'].forEach(item => {
+    ['coffee', 'tea'].forEach(item => {
         const qty = parseInt(document.getElementById(`${item}-sugarfree-qty`)?.value) || 0;
         if (qty > 0) itemSugarFree[item] = qty;
     });
@@ -651,7 +651,7 @@ function createOrder(paymentMethod, total) {
     document.querySelector('input[name="orderType"][value="dine-in"]').checked = true;
     
     // Reset item-specific sugar-free
-    ['coffee', 'tea', 'horlicks'].forEach(item => {
+    ['coffee', 'tea'].forEach(item => {
         const sugarInput = document.getElementById(`${item}-sugarfree-qty`);
         if (sugarInput) sugarInput.value = 0;
         const sugarDiv = document.getElementById(`${item}-sugar`);
@@ -1051,7 +1051,7 @@ function showAddItemModal(category) {
     const titles = {
         coffee: 'Add Tiffin Item',
         tea: 'Add Tea Item',
-        horlicks: 'Add Health Drink',
+        
         maska: 'Add Food Item'
     };
     document.getElementById('modalTitle').textContent = titles[category] || 'Add Custom Item';
@@ -1086,7 +1086,7 @@ function addCustomItem() {
 
 // Load custom items
 function loadCustomItems() {
-    const categories = ['coffee', 'tea', 'horlicks', 'maska'];
+    const categories = ['coffee', 'tea', 'maska'];
     
     categories.forEach(category => {
         const container = document.getElementById(`custom${category.charAt(0).toUpperCase() + category.slice(1)}`);
