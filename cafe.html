@@ -44,40 +44,6 @@
 
                 <div class="menu-category">
                     <h2 class="category-title">🍱 Tiffin Items</h2>
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <h3>Idly</h3>
-                            <p class="price">₹30</p>
-                        </div>
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="updateQuantity('coffee', -1)">-</button>
-                            <input type="number" id="coffee-qty" value="0" min="0" readonly>
-                            <button class="qty-btn" onclick="updateQuantity('coffee', 1)">+</button>
-                            <button class="stock-btn" id="coffee-stock" onclick="toggleStock('coffee')">✓</button>
-                        </div>
-                        <div id="coffee-sugar" style="display: none; margin-top: 0.5rem;">
-                            <div style="display: flex; gap: 0.5rem; align-items: center;">
-                                <label style="flex: 1; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 0.9rem; padding: 0.5rem; background: rgba(255,215,0,0.2); border-radius: 5px; cursor: pointer;">
-                                    <input type="radio" name="coffee-sugar-option" value="less" onchange="handleSugarOption('coffee', 'less')">
-                                    <span>Less Sugar</span>
-                                </label>
-                                <label style="flex: 1; display: flex; align-items: center; gap: 0.5rem; color: white; font-size: 0.9rem; padding: 0.5rem; background: rgba(255,215,0,0.2); border-radius: 5px; cursor: pointer;">
-                                    <input type="radio" name="coffee-sugar-option" value="free" onchange="handleSugarOption('coffee', 'free')">
-                                    <span>Sugar Free (+₹10)</span>
-                                </label>
-                            </div>
-                            <div id="coffee-sugarfree-control" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: rgba(255,215,0,0.3); border-radius: 5px;">
-                                <div style="display: flex; align-items: center; gap: 0.5rem; color: white;">
-                                    <span style="flex: 1; font-size: 0.9rem;">Sugar Free Qty:</span>
-                                    <div class="quantity-control" style="gap: 0.3rem;">
-                                        <button class="qty-btn" style="width: 30px; height: 30px; font-size: 0.9rem;" onclick="updateSugarFree('coffee', -1)">-</button>
-                                        <input type="number" id="coffee-sugarfree-qty" value="0" min="0" readonly style="width: 40px; text-align: center; padding: 0.3rem; border: 2px solid #FFD700; border-radius: 5px; font-size: 0.9rem; font-weight: bold;">
-                                        <button class="qty-btn" style="width: 30px; height: 30px; font-size: 0.9rem;" onclick="updateSugarFree('coffee', 1)">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div id="customCoffee"></div>
                     <button class="add-item-btn" onclick="showAddItemModal('coffee')">+ Add Tiffin Item</button>
                 </div>
