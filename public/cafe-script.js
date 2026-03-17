@@ -133,23 +133,24 @@ let pendingOrderAmount = 0;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
-    loadCustomItems();
-    loadStockStatus();
-    displayOrders();
-    updateOrderSummary();
-    updateStatistics();
-    showPendingFloat();
-    startPaidNotificationPolling();
-    updateBellBadge();
-    
-    // Hide loading screen after 2 seconds
+    try { loadCustomItems(); } catch(e) { console.error('loadCustomItems:', e); }
+    try { loadStockStatus(); } catch(e) { console.error('loadStockStatus:', e); }
+    try { displayOrders(); } catch(e) { console.error('displayOrders:', e); }
+    try { updateOrderSummary(); } catch(e) { console.error('updateOrderSummary:', e); }
+    try { updateStatistics(); } catch(e) { console.error('updateStatistics:', e); }
+    try { showPendingFloat(); } catch(e) { console.error('showPendingFloat:', e); }
+    try { startPaidNotificationPolling(); } catch(e) { console.error('polling:', e); }
+    try { updateBellBadge(); } catch(e) { console.error('bell:', e); }
+    try { updateBranding(); } catch(e) { console.error('branding:', e); }
+
+    // Always hide loading screen
     setTimeout(() => {
         const loadingScreen = document.getElementById('loadingScreen');
-        loadingScreen.style.opacity = '0';
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-        }, 600);
-    }, 2000);
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => { loadingScreen.style.display = 'none'; }, 600);
+        }
+    }, 1500);
 });
 
 // Show pending orders float
